@@ -1,0 +1,8 @@
+{
+  "name":"clear-viewport",
+  "version":"1.0.0",
+  "main":"clear-viewport.min.js",
+  "keywords":["移动端开发","clear","clear-viewport","clear-viewport.min.js","javascript","js"],
+  "author":"徐孝楼",
+  "dependencies":{}
+}
