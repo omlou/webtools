@@ -1,20 +1,44 @@
 ### 介绍
-* 解决移动端开发屏幕大小不一样的问题
+* 解决H5开发中页面自适应的问题，尤其是移动端开发
 
-#### 原理
+### 原理
 * 1rem等于html根元素的字体大小"font-size"，默认为16px
 * 动态改变系统默认字体大小就能改变rem单位的大小
 
-#### 工具说明
-* 1rem为一个长度单元，rem对应的px大小会随着设配屏幕的宽度变化而变化
-* 如果设配宽度小于750px，默认设备宽度的1/375为1rem
-* 如果设备宽度大于等于750px，默认设备宽度的1/750为1rem
-* 因为改变了系统默认字体大小，如果元素没有设置字体大小，就会变得特别小，此时需要在body上设置一个默认的字体大小
-* 本工具默认设置为16rem，你可以通过赋值提供的全局对象"clearViewport"来改变body字体大小（在window.onload或DOMContentLoaded里设置无效）
+### 下载
 
-#### 设置默认字体大小
-##### `clearViewport`
-* 全局变量
+使用 npm 安装
+
+```shell
+npm i clear-viewport
+```
+
+使用 script 标签导入
+
+```html
+<script src="https://gitee.com/xlou/clear-viewport/raw/master/clear-viewport.min.js"></script>
+<script>
+  ClearViewport.setOption({
+    /* options */
+  })
+</script>
+```
+
+### 使用
+
+模块化引入
+
 ```javascript
-clearViewport.fontSize="14rem"
+import {ClearViewport} from 'clear-viewport'
+
+ClearViewport.setOption({
+  width:375, // 目标屏幕的宽（将目标屏幕分为多少个单位），默认为 375
+  mobile:true, // 是否开启移动端兼容模式，兼容微信、QQ自带浏览器，默认为 true
+  fontSize:"0.16rem", // 页面默认字体的大小，设置在 body 标签上，端兼容模式下默认为 "0.16rem"
+  scalable:false // 移动端页面是否支持缩放，默认为 false
+})
+/*
+  mobile 设置为 false 时，如，设计稿中目标的宽为 20px ，那么代码中就设置 20rem
+  mobile 为 true 时（即开启移动端兼容模式），如果设计稿中目标的宽为 20px ，那么代码中就设置 0.2rem（即实际值除以 100）
+*/
 ```

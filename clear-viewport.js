@@ -1,38 +1,46 @@
-(function (doc, win) {
-	// 插入viewport标签
-	var contdom = doc.createElement('div')
-	contdom.innerHTML = `<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">`
-	var newvp = Array.from(contdom.children)[0]
-	var oldvp = doc.getElementsByName("viewport")[0]
-	var title = doc.getElementsByTagName("title")[0]
-	var parentdom = title.parentNode
-	if (oldvp) {
-		parentdom.insertBefore(newvp, oldvp)
-		parentdom.removeChild(oldvp)
-	} else {
-		parentdom.insertBefore(newvp, title)
+var ClearViewport=(function(exports){
+	exports.setOption=function(options){
+		if(!window){
+			console.warn('ClearViewport startup time is incorrect.')
+			return
+		}
+		var {document}=window
+		var {width=375,mobile=true,fontSize=mobile?"0.16rem":"16rem",scalable=false}=options
+		/* 插入viewport标签 */
+		var meta=document.createElement("meta")
+		meta.setAttribute("name","viewport")
+		scalable?(
+			meta.setAttribute("content","width=device-width,initial-scale=1.0,user-scalable=yes")
+		):(
+			meta.setAttribute("content","width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no")
+		);
+		var head=document.getElementsByTagName("head")[0]
+		var oldvp=document.querySelector(`meta[name="viewport"]`)
+		if(oldvp){
+			head.insertBefore(meta,oldvp)
+			head.removeChild(oldvp)
+		}else{
+			var first=head.firstChild
+			head.insertBefore(meta,first)
+		}
+		/* 根据页面改变计算rem */
+		var resizeEvt = 'onorientationchange' in window ? 'orientationchange' : 'resize'
+		function recalc(){
+			var docEl = document.documentElement
+			var {clientWidth} = docEl
+			if (!clientWidth) return
+			var pro = clientWidth / width
+			docEl.style.fontSize = Number(mobile?pro*100:pro).toFixed(4) + "px"
+		}
+		window.addEventListener(resizeEvt,recalc)
+		/* 还原系统默认字体大小 */
+		function resetSize(){
+			document.body.style.fontSize = fontSize
+			document.removeEventListener('DOMContentLoaded', resetSize)
+		}
+		document.addEventListener('DOMContentLoaded', recalc)
+		document.addEventListener('DOMContentLoaded', resetSize)
 	}
-	// 计算rem
-	var docEl = doc.documentElement
-	var resizeEvt = 'onorientationchange' in window ? 'orientationchange' : 'resize'
-	var recalc = function () {
-		var clientWidth = docEl.clientWidth
-		if (!clientWidth) return
-		if (clientWidth < 750)
-			docEl.style.fontSize = Number(clientWidth / 375).toFixed(4) + "px"
-		else if (clientWidth >= 750)
-			docEl.style.fontSize = Number(clientWidth / 750).toFixed(4) + "px"
-	}
-	var resetSize = function () {
-		doc.body.style.fontSize = win.clearViewport.fontSize ? win.clearViewport.fontSize : "16rem"
-		doc.removeEventListener('DOMContentLoaded', resetSize, false)
-	}
-	win.addEventListener(resizeEvt, recalc, false)
-	doc.addEventListener('DOMContentLoaded', recalc, false)
-	// 还原正常字体大小
-	doc.addEventListener('DOMContentLoaded', resetSize, false)
-	// 绑定设置入口
-	win.clearViewport = {
-		fontSize: ""
-	}
-})(document, window)
+	return exports
+})({})
+module?(module.exports=ClearViewport):(window.ClearViewport=ClearViewport)
