@@ -1,5 +1,5 @@
-var ClearViewport=(function(exports){
-	exports.setOption=function(options){
+var ClearViewport=(function(exports:{setOption?:object}){
+	exports.setOption=function(options:{width?:number,mobile?:boolean,fontSize?:string,scalable?:false}){
 		if(!window){
 			console.warn('ClearViewport startup time is incorrect.')
 			return

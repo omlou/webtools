@@ -1,21 +1,20 @@
 {
   "name": "clear-viewport",
-  "version": "1.0.2",
-  "main": "index.js",
-  "keywords": [
-    "移动端开发",
-    "clear",
-    "clear-viewport",
-    "clear-viewport.min.js",
-    "javascript",
-    "js"
-  ],
+  "version": "1.0.3",
+  "main": "./dist/clear-viewport.min.js",
+  "types": "clear-viewport.d.ts",
+  "keywords": ["移动端开发","clear-viewport","clear-viewport.min.js","clear","javascript","js"],
+  "repository": {
+    "type": "git",
+    "url": "https://gitee.com/xlou/clear-viewport.git"
+  },
   "scripts": {
+    "start": "npm run build",
     "build": "webpack --config ./webpack.config.js"
   },
   "author": "徐孝楼",
   "devDependencies": {
-    "ignore-loader": "^0.1.2",
+    "@types/node": "^17.0.8",
     "ts-loader": "^9.2.6",
     "webpack": "^5.65.0",
     "webpack-cli": "^4.9.1"

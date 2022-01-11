@@ -1,1 +1,0 @@
-uglifyjs ./clear-viewport.js -m -c -o ./clear-viewport.min.js
