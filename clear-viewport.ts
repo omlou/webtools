@@ -1,5 +1,13 @@
-var ClearViewport=(function(exports:{setOption?:object}){
-	exports.setOption=function(options:{width?:number,mobile?:boolean,fontSize?:string,scalable?:false}){
+declare global {
+	interface Window {
+		ClearViewport:object
+	}
+}
+export const ClearViewport:{setOption:Function}=(function(core:{setOption:Function}){
+	window.ClearViewport=core
+	return core
+})({
+	setOption:function(options:{width?:number,mobile?:boolean,fontSize?:string,scalable?:false}){
 		if(!window){
 			console.warn('ClearViewport startup time is incorrect.')
 			return
@@ -41,6 +49,4 @@ var ClearViewport=(function(exports:{setOption?:object}){
 		document.addEventListener('DOMContentLoaded', recalc)
 		document.addEventListener('DOMContentLoaded', resetSize)
 	}
-	return exports
-})({})
-module?(module.exports=ClearViewport):(window.ClearViewport=ClearViewport)
+})
