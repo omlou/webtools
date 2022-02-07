@@ -1,6 +1,7 @@
 declare global {
     interface Window {
-        ClearViewport: object;
+        ClearViewport: any;
+        exports: any;
     }
 }
 export declare const ClearViewport: {

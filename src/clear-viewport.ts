@@ -1,8 +1,20 @@
 declare global {
 	interface Window {
-		ClearViewport:object
+		clearViewport:any
 	}
 }
+
+(function(){
+	export const a={}
+
+})()
+
+
+
+
+
+
+window.exports={}
 export const ClearViewport:{setOption:Function}=(function(core:{setOption:Function}){
 	window.ClearViewport=core
 	return core

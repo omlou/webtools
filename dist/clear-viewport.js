@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ClearViewport = void 0;
+window.exports = {};
 exports.ClearViewport = (function (core) {
     window.ClearViewport = core;
     return core;
@@ -10,14 +11,14 @@ exports.ClearViewport = (function (core) {
             console.warn('ClearViewport startup time is incorrect.');
             return;
         }
-        var document = window.document;
-        var _a = options.width, width = _a === void 0 ? 375 : _a, _b = options.mobile, mobile = _b === void 0 ? true : _b, _c = options.fontSize, fontSize = _c === void 0 ? mobile ? "0.16rem" : "16rem" : _c, _d = options.scalable, scalable = _d === void 0 ? false : _d;
+        var { document } = window;
+        var { width = 375, mobile = true, fontSize = mobile ? "0.16rem" : "16rem", scalable = false } = options;
         /* 插入viewport标签 */
         var meta = document.createElement("meta");
         meta.setAttribute("name", "viewport");
         scalable ? (meta.setAttribute("content", "width=device-width,initial-scale=1.0,user-scalable=yes")) : (meta.setAttribute("content", "width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"));
         var head = document.getElementsByTagName("head")[0];
-        var oldvp = document.querySelector("meta[name=\"viewport\"]");
+        var oldvp = document.querySelector(`meta[name="viewport"]`);
         if (oldvp) {
             head.insertBefore(meta, oldvp);
             head.removeChild(oldvp);
@@ -30,7 +31,7 @@ exports.ClearViewport = (function (core) {
         var resizeEvt = 'onorientationchange' in window ? 'orientationchange' : 'resize';
         function recalc() {
             var docEl = document.documentElement;
-            var clientWidth = docEl.clientWidth;
+            var { clientWidth } = docEl;
             if (!clientWidth)
                 return;
             var pro = clientWidth / width;
