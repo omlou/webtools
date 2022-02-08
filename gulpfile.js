@@ -2,14 +2,21 @@ var {src,dest,series,parallel}=require('gulp')
 var uglify=require('gulp-uglify-es').default
 var rename=require('gulp-rename')
 var del=require('del')
-var ts=require('gulp-typescript')
+var browserify=require('browserify')
+var tsify=require('tsify')
+var source=require('vinyl-source-stream')
+var buffer=require('vinyl-buffer')
 
-const tsProject=ts.createProject('tsconfig.json')
 const tsTask=function(){
   del(['dist/'])
-  return src('src/clear-viewport.ts')
-    .pipe(tsProject())
-    .pipe(dest('dist/'))
+  return browserify({
+    basedir: 'src/',
+    entries: ['clear-viewport.ts']
+  })
+  .plugin(tsify).bundle()
+  .pipe(source('hello.js'))
+  .pipe(buffer())
+  .pipe(dest('dist/'))
     
 }
 
