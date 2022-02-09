@@ -1,27 +1,29 @@
-interface Window {
-	cvp:any
-}
-export const cvp=(function(factory){
-	return factory()
-})(function(){
-	if(!window){
+(function(root,factory){
+  if(typeof(module)==='object'&&typeof(module.exports)==='object'){
+    module.exports.cvp=factory()
+  }else if(typeof(exports)==='object'){
+    exports.cvp=factory()
+  }else if(typeof(root)==='object'){
+    root.cvp=factory()
+  }else if(typeof(window)==='object'){
+    window.cvp=factory()
+  }else{
+    console.warn('clear-viewport startup failure.')
+  }
+})(this,function(){
+  if(!window){
 		console.warn('clear-viewport startup time is incorrect.')
 		return
 	}
 	var {document}=window
-	interface Store {
-		options:any
-		docInfo:any
-	}
-	var store:Store={
-		options:null,
-		docInfo:{}
-	}
-	return {
-		init:function(options:{width?:number,mobile?:boolean,fontSize?:string,scalable?:false}){
-			var {width=375,mobile=true,fontSize=mobile?"0.16rem":"16rem",scalable=false}=options
-			store.options={width,mobile,fontSize,scalable}
-			/* 插入viewport标签 */
+  var store={
+    docInfo:{}
+  }
+  return {
+    init:function(options={}){
+      var {width=375,mobile=true,fontSize=mobile?"0.16rem":"16rem",scalable=false}=options
+      store.options={width,mobile,fontSize,scalable}
+      /* 插入viewport标签 */
 			var meta=document.createElement("meta")
 			meta.setAttribute("name","viewport")
 			scalable?(
@@ -58,9 +60,9 @@ export const cvp=(function(factory){
 			}
 			document.addEventListener('DOMContentLoaded', recalc)
 			document.addEventListener('DOMContentLoaded', resetSize)
-		},
+    },
 		get info(){
 			return store
 		}
-	}
+  }
 })
