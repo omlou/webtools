@@ -10,13 +10,14 @@
 使用 npm 安装
 
 ```shell
-npm i clear-viewport
+npm i clear-viewport -S
 ```
 
 使用 script 标签导入
 
 ```html
 <script src="https://gitee.com/xlou/clear-viewport/raw/master/dist/clear-viewport.min.js"></script>
+<!-- 建议下载到本地使用 -->
 <script>
   cvp.init()
 </script>
