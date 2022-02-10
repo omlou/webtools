@@ -1,29 +1,29 @@
 (function(root,factory){
-  if(typeof(module)==='object'&&typeof(module.exports)==='object'){
-    module.exports.cvp=factory()
-  }else if(typeof(exports)==='object'){
-    exports.cvp=factory()
-  }else if(typeof(root)==='object'){
-    root.cvp=factory()
-  }else if(typeof(window)==='object'){
-    window.cvp=factory()
-  }else{
-    console.warn('clear-viewport startup failure.')
-  }
+	if(typeof(module)==='object'&&typeof(module.exports)==='object'){
+		module.exports.cvp=factory()
+	}else if(typeof(exports)==='object'){
+		exports.cvp=factory()
+	}else if(typeof(root)==='object'){
+		root.cvp=factory()
+	}else if(typeof(window)==='object'){
+		window.cvp=factory()
+	}else{
+		console.warn('clear-viewport startup failure.')
+	}
 })(this,function(){
-  if(!window){
+	if(!window){
 		console.warn('clear-viewport startup time is incorrect.')
 		return
 	}
 	var {document}=window
-  var store={
-    docInfo:{}
-  }
-  return {
-    init:function(options={}){
-      var {width=375,mobile=true,fontSize=mobile?"0.16rem":"16rem",scalable=false}=options
-      store.options={width,mobile,fontSize,scalable}
-      /* 插入viewport标签 */
+	var store={
+		docInfo:{}
+	}
+	return {
+		init:function(options={}){
+			var {width=375,mobile=true,fontSize=mobile?"0.16rem":"16rem",scalable=false}=options
+			store.options={width,mobile,fontSize,scalable}
+			/* 插入viewport标签 */
 			var meta=document.createElement("meta")
 			meta.setAttribute("name","viewport")
 			scalable?(
@@ -60,9 +60,9 @@
 			}
 			document.addEventListener('DOMContentLoaded', recalc)
 			document.addEventListener('DOMContentLoaded', resetSize)
-    },
+		},
 		get info(){
 			return store
 		}
-  }
+	}
 })
