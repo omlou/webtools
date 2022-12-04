@@ -1,52 +1,76 @@
-### 介绍
-* 解决H5开发中页面自适应的问题，尤其是移动端开发
+### Introduce
+* Solve the problem of page adaptation in H5 development, especially mobile development
+* Excellent performance, the page don't need to be re-rendered
 
-### 原理
-* 1rem等于html根元素的字体大小"font-size"，默认为16px
-* 动态改变系统默认字体大小就能改变rem单位的大小
+### Principle
+* 1rem is equal to the "font-size" of the html root element, the default is 16px
+* Dynamically changing the font-size of the root can change the size of the rem
 
-### 下载
+### Download
 
-使用 npm 安装
+Use npm install
 
 ```shell
 npm i clear-viewport -S
 ```
 
-使用 script 标签导入
+use script tag import
 
 ```html
 <script src="https://gitee.com/xlou/clear-viewport/raw/master/dist/clear-viewport.min.js"></script>
-<!-- 建议下载到本地使用 -->
+<!-- Recommend to download to local use -->
 <script>
   cvp.init()
 </script>
 ```
 
-### 使用
+### Usage
 
-模块化引入
+Use Module
 
 ```javascript
 import {cvp} from 'clear-viewport'
 
 cvp.init({
-  width:375, // 目标屏幕的宽（将目标屏幕分为多少个单位），默认为 375
-  mobile:true, // 是否开启移动端兼容模式，兼容微信、QQ自带浏览器，默认为 true
-  fontSize:"0.16rem", // 页面默认字体的大小，设置在 body 标签上，端兼容模式下默认为 "0.16rem"
-  scalable:false // 移动端页面是否支持缩放，默认为 false
+  width:375,
+  fontSize:'0.14rem'
+  /* other options */
 })
-/*
-  mobile 设置为 false 时，如，设计稿中目标的宽为 20px ，那么代码中就设置 20rem
-  mobile 为 true 时（即开启移动端兼容模式），如果设计稿中目标的宽为 20px ，那么代码中就设置 0.2rem（即实际值除以 100）
-*/
-
-cvp.info
-/* 
-  该属性返回当前窗口的信息
-  {
-    docInfo:{...}, 返回当前窗口信息
-    options:{...} 返回 clear-viewport 各配置项的信息
-  }
-*/
 ```
+
+### Options
+
+#### cvp:
+
+|Key|Type|Description|
+|----|----|----|
+|init|function|Init the clear-viewport|
+|info|object|Return the informations of clear-viewport that current page used|
+
+#### init params
+
+|Key|Type|Default|Supported values|Description|
+|----|----|----|----|----|
+|width|number|375|number|The width of the target window (the number of window units)|
+|mobile|boolean|true|boolean|Whether to open the mobile compatibility mode, compatible with the browsers of WeChat and QQ|
+|fontSize|String|"0.16rem"|string|The default font-size of the page, set on the body tag, defaults to "0.16rem" in mobile compatibility mode|
+|metaViewport|boolean|true|boolean|Whether to use the \<meta name="viewport"> tag|
+|userScalable|string \| null|"no"|"yes","no",null|Meta tag related, whether to support user scalable|
+|initialScalable|string \| null|"1.0"|string,null|Meta tag related, initial scaling value|
+|minimumScale|string|null|string,null|Meta tag related, min scaling value|
+|maximumScale|string|null|string,null|Meta tag related, max scaling value|
+
+If the attribute that supports "null" is set to null, the "meta" tag will not configure the attribute.
+
+When "mobile" is set to false, for example, the width of the target in the design is 20px, then set 20rem in the code.  
+When "mobile" is set to true (use the mobile compatibility mode), if the width of the target in the design is 20px, then set 0.2rem in the code (that is, divide the design value by 100).
+
+#### info attributes
+
+docInfo:
+
+* meta: HTMLMetaElement, return meta tag of this page
+
+* rootSize: string, return the font-size of root
+
+options: object, return the options of clear-viewport this page

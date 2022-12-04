@@ -21,26 +21,29 @@
 	}
 	return {
 		init:function(options={}){
-			var {width=375,mobile=true,fontSize=mobile?"0.16rem":"16rem",scalable=false}=options
-			store.options={width,mobile,fontSize,scalable}
+			var {width=375,mobile=true,fontSize=mobile?"0.16rem":"16rem",metaViewport=true,userScalable="no",initialScale="1.0",minimumScale=null,maximumScale=null}=options
+			store.options={width,mobile,fontSize,metaViewport,userScalable,initialScale,minimumScale,maximumScale}
 			/* 插入viewport标签 */
-			var meta=document.createElement("meta")
-			meta.setAttribute("name","viewport")
-			scalable?(
-				meta.setAttribute("content","width=device-width,initial-scale=1.0,user-scalable=yes")
-			):(
-				meta.setAttribute("content","width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no")
-			);
-			var head=document.getElementsByTagName("head")[0]
-			var oldvp=document.querySelector(`meta[name="viewport"]`)
-			if(oldvp){
-				head.insertBefore(meta,oldvp)
-				head.removeChild(oldvp)
-			}else{
-				var first=head.firstChild
-				head.insertBefore(meta,first)
+			if(metaViewport){
+				var meta=document.createElement("meta")
+				meta.setAttribute("name","viewport")
+				var metaContent=["width=device-width"]
+				if(userScalable!==null)metaContent.push("user-scalable="+userScalable)
+				if(initialScale!==null)metaContent.push("initial-scale="+initialScale)
+				if(minimumScale!==null)metaContent.push("minimum-scale"+minimumScale)
+				if(maximumScale!==null)metaContent.push("maximum-scale="+maximumScale)
+				meta.setAttribute("content",metaContent.join(","))
+				var head=document.getElementsByTagName("head")[0]
+				var oldvp=document.querySelector(`meta[name="viewport"]`)
+				if(oldvp){
+					head.insertBefore(meta,oldvp)
+					head.removeChild(oldvp)
+				}else{
+					var first=head.firstChild
+					head.insertBefore(meta,first)
+				}
+				store.docInfo.meta=meta
 			}
-			store.docInfo.meta=meta
 			/* 根据页面改变计算rem */
 			var resizeEvt = 'onorientationchange' in window ? 'orientationchange' : 'resize'
 			function recalc(){
@@ -56,10 +59,15 @@
 			/* 还原系统默认字体大小 */
 			function resetSize(){
 				document.body.style.fontSize = fontSize
-				document.removeEventListener('DOMContentLoaded', resetSize)
 			}
-			document.addEventListener('DOMContentLoaded', recalc)
-			document.addEventListener('DOMContentLoaded', resetSize)
+			recalc()
+			var observer=new MutationObserver((list)=>{
+				if(document.body){
+					resetSize()
+					observer.disconnect()
+				}
+			})
+			observer.observe(document.documentElement,{childList:true})
 		},
 		get info(){
 			return store

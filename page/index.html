@@ -3,9 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>clear-viewport</title>
   <script src="../dist/clear-viewport.min.js"></script>
+  <script>
+    cvp.init({
+      width:375,
+      metaViewport:true,
+      userScalable:"yes"
+    })
+  </script>
   <style>
     html{
       background-color: #f5f5f5;
@@ -35,6 +41,7 @@
       height: 0.3rem;
       line-height: 0.3rem;
       padding: 0 0.16rem;
+      /* font-size: 0.16rem; */
     }
     .box{
       padding: 0.14rem;
@@ -54,9 +61,6 @@
       align-items: center;
     }
   </style>
-  <script>
-    cvp.init()
-  </script>
 </head>
 <body>
   <div class="head">Welcome to clear-viewport!</div>

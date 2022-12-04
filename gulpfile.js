@@ -24,7 +24,7 @@ const serverTask=series(
   function(){
     return src('./')
       .pipe(webserver({
-        host:'127.0.0.1',
+        host:'0.0.0.0',
         port:'5000',
         livereload:true,
         open:'page/index.html'
