@@ -1,19 +1,16 @@
 {
   "name": "clear-viewport",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "main": "./dist/clear-viewport.min.js",
   "types": "./index.d.ts",
   "keywords": [
-    "移动端开发",
-    "clear-viewport",
-    "clear-viewport.min.js",
-    "clear",
-    "javascript",
-    "js"
+    "移动端开发","屏幕自适应","屏幕适配","窗口大小适配",
+    "clear-viewport","clear-viewport.min.js","clear","javascript","js",
+    "Vue","React","Angular"
   ],
   "repository": {
     "type": "git",
-    "url": "https://gitee.com/xlou/clear-viewport.git"
+    "url": "https://github.com/omlou/clear-viewport.git"
   },
   "scripts": {
     "start": "gulp server",

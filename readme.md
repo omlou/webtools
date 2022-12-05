@@ -31,10 +31,17 @@ Use Module
 ```javascript
 import {cvp} from 'clear-viewport'
 
+/* Recommended configuration on the mobile (design draft is 375px, 750px is the same) */
 cvp.init({
   width:375,
   fontSize:'0.14rem'
-  /* other options */
+})
+
+/* PC recommended configuration (design draft is 1920px)  */
+cvp.init({
+  width:1920,
+  metaViewport:false,
+  fontSize:'0.14rem'
 })
 ```
 
