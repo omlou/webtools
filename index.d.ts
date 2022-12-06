@@ -1,4 +1,1 @@
-export declare const cvp: {
-  init:Function
-  info:object
-}
+export declare const filterObject:Function

@@ -20,7 +20,7 @@ use script tag import
 <script src="https://gitee.com/xlou/clear-viewport/raw/master/dist/clear-viewport.min.js"></script>
 <!-- Recommend to download to local use -->
 <script>
-  cvp.init()
+  cvp.init({/* options */})
 </script>
 ```
 

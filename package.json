@@ -1,16 +1,16 @@
 {
-  "name": "clear-viewport",
-  "version": "1.2.1",
-  "main": "./dist/clear-viewport.min.js",
+  "name": "webtools",
+  "version": "1.0.0",
+  "main": "./dist/webtools.min.js",
   "types": "./index.d.ts",
   "keywords": [
-    "移动端开发","屏幕自适应","屏幕适配","窗口大小适配",
-    "clear-viewport","clear-viewport.min.js","clear","javascript","js",
-    "Vue","React","Angular"
+    "web前端","web前端插件","web前端工具","深拷贝","H5",
+    "webtools","webtools.min.js","js",
+    "JavaScript","Vue","React","Angular"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/omlou/clear-viewport.git"
+    "url": "https://github.com/omlou/webtools.git"
   },
   "scripts": {
     "start": "gulp server",
