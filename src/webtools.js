@@ -5,12 +5,14 @@
 		exports=factory()
 	}else if(typeof(root)==='object'){
 		root.tools=factory()
+		root.Base64=factory().Base64
 	}else if(typeof(window)==='object'){
 		window.tools=factory()
+		window.Base64=factory().Base64
 	}else{
 		console.warn('webtools startup failure.')
 	}
-})(this,function(name){
+})(this,function(){
 	function Base64() {
 		key="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
 		this.encode=function(input){
@@ -101,6 +103,18 @@
 			return string;
 		}
 	}
+	function deepCopy(obj){
+		let res=(obj.constructor.name==="Array")?[]:{}
+		for(let prop in obj){
+			if(typeof obj[prop]==='object'&&obj[prop]!==null){
+					res[prop]=(obj[prop].constructor.name==="Array")?[]:{}
+					res[prop]=deepCopy(obj[prop])
+			}else{
+					res[prop]=obj[prop]
+			}
+		}
+		return res
+	}
 	return {
 		filterObject:function(obj,str,bol){
 			var res={}
@@ -119,18 +133,7 @@
 			}
 			return res
 		},
-		deepCopy:function(obj){
-			let res=(obj.constructor.name==="Array")?[]:{}
-			for(let prop in obj){
-				if(typeof obj[prop]==='object'&&obj[prop]!==null){
-						res[prop]=(obj[prop].constructor.name==="Array")?[]:{}
-						res[prop]=deepCopy(obj[prop])
-				}else{
-						res[prop]=obj[prop]
-				}
-			}
-			return res
-		},
+		deepCopy,
 		getQuery:function(){
 			var qobj={}
 			var {href}=window.location
@@ -205,13 +208,13 @@
 			return nums
 		},
 		formatInput:function(msg){ // 正则限制input输入
-			var {el,rule,reg,nopass,pass}=msg
+			var {el,rules,reg,nopass,pass}=msg
 			var doc=window.document
 			var domArr=doc.querySelectorAll(el)
 			domArr.forEach(item=>{
-				limitItem(item)
+				formatItem(item)
 			})
-			function limitItem(dom){
+			function formatItem(dom){
 				var nowval=dom.value
 				dom.addEventListener('input',bindLimit)
 				dom.addEventListener('compositionstart',event=>{
@@ -224,8 +227,8 @@
 				function bindLimit(event){
 					var inpval=event.target.value
 					var allpass=true
-					if(rule){
-						for(let item of rule){
+					if(rules){
+						for(let item of rules){
 							regVal(item.reg,item.nopass)
 							if(!allpass)break
 						}
@@ -292,16 +295,16 @@
 			return storage
 		},
 		setStore:function(str,data){
-			var datajson=""
-			try{
-				datajson=JSON.stringify(data)
-			}catch(err){
-				datajson=data
+			if(typeof(data)==='object'&&data!==null){
+				try{
+					data=JSON.stringify(data)
+				}catch(err){}
 			}
-			localStorage.setItem(str,datajson)
+			localStorage.setItem(str,data)
 		},
 		unid:function(){
 			return parseInt(Math.random()*10e13).toString(36)+Date.now().toString(36)
-		}
+		},
+		Base64:new Base64()
 	}
 })

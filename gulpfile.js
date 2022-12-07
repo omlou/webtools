@@ -1,4 +1,4 @@
-var {src,dest,watch,series,parallel}=require('gulp')
+var {src,dest,watch,series}=require('gulp')
 var uglify=require('gulp-uglify-es').default
 var rename=require('gulp-rename')
 var del=require('del')
