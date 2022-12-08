@@ -21,13 +21,13 @@
 安装
 
 ``` bash
-npm i webtools -S
+npm i @xlou/webtools -S
 ```
 
 main.js / main.ts 中使用
 
 ``` javascript
-import {Base64,getQuery} from 'webtools'
+import {Base64,getQuery} from '@xlou/webtools'
 
 var query=getQuery()
 var str=Base64.encode("hello webtools")

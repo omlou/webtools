@@ -1,5 +1,5 @@
 {
-  "name": "webtools",
+  "name": "@xlou/webtools",
   "version": "1.0.0",
   "main": "./dist/webtools.min.js",
   "types": "./index.d.ts",
