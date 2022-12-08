@@ -14,7 +14,7 @@
 	}
 })(this,function(){
 	function Base64() {
-		key="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+		var key="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
 		this.encode=function(input){
 			var output="";
 			var chr1,chr2,chr3,enc1,enc2,enc3,enc4;
@@ -62,7 +62,7 @@
 			output=utf8_decode(output);
 			return output
 		}
-		utf8_encode=function(string){
+		var utf8_encode=function(string){
 			string=string.replace(/\r\n/g,"\n");
 			var utftext="";
 			for(var n=0;n<string.length;n++){
@@ -80,23 +80,23 @@
 			}
 			return utftext
 		}
-		utf8_decode=function(utftext){
+		var utf8_decode=function(utftext){
 			var string="";
 			var i=0;
-			var c=c1=c2=0;
+			var c=0,c1=0,c2=0;
 			while(i<utftext.length){
 				c=utftext.charCodeAt(i);
 				if(c<128){
 					string+=String.fromCharCode(c);
 					i++;
 				}else if((c>191)&&(c<224)){
-					c2=utftext.charCodeAt(i+1);
-					string+=String.fromCharCode(((c&31)<<6)|(c2&63));
+					c1=utftext.charCodeAt(i+1);
+					string+=String.fromCharCode(((c&31)<<6)|(c1&63));
 					i+=2;
 				}else{
-					c2=utftext.charCodeAt(i+1);
-					c3=utftext.charCodeAt(i+2);
-					string+=String.fromCharCode(((c&15)<<12)|((c2&63)<<6)|(c3&63));
+					c1=utftext.charCodeAt(i+1);
+					c2=utftext.charCodeAt(i+2);
+					string+=String.fromCharCode(((c&15)<<12)|((c1&63)<<6)|(c2&63));
 					i+=3;
 				}
 			}
