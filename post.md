@@ -37,10 +37,17 @@ npm i @xlou/webtools -S
 main.js / main.ts 中使用
 
 ``` javascript
+/* 按需取用 */
 import {Base64,getQuery} from '@xlou/webtools'
 
 var query=getQuery()
 var str=Base64.encode("hello webtools")
+
+/* 整包使用 */
+import tools from '@xlou/webtools'
+
+var query=tools.getQuery()
+var str=tools.Base64.encode("hello webtools")
 ```
 
 ### API
@@ -82,12 +89,12 @@ var n=queryString(a,false) // n="name=tom&id=1"
 
 ``` javascript
 var a=1.335
-var m=q.toFixed(2) // m=1.33 使用默认的 toFixed 方法，会出现和正常认知不符情况
+var m=a.toFixed(2) // m=1.33 使用默认的 toFixed 方法，会出现和正常认知不符情况
 var n=toFixed(a,2) // n=1.34
 var p=toFixed(a) // p=1
 ```
 
-#### formSubmit(obj)&ensp;模拟 form 表单提交，常用于 post 下载文件
+#### formSubmit(obj)&ensp;js 模拟 form 表单提交，常用于 post 下载文件
 
 ``` javascript
 formSubmit({
