@@ -4,11 +4,11 @@
 	}else if(typeof(exports)==='object'){
 		exports=factory()
 	}else if(typeof(root)==='object'){
-		root.tools=factory()
-		root.Base64=factory().Base64
+		root["tools"]=factory()
+		root["Base64"]=factory().Base64
 	}else if(typeof(window)==='object'){
-		window.tools=factory()
-		window.Base64=factory().Base64
+		window["tools"]=factory()
+		window["Base64"]=factory().Base64
 	}else{
 		console.warn('webtools startup failure.')
 	}
@@ -148,14 +148,14 @@
 			})
 			return qobj
 		},
-		queryString:function(obj){
+		queryString:function(obj,bol=true){
 			var arr=[]
 			for(let i in obj){
 				if(obj[i]===null||obj[i]===undefined)obj[i]=""
 				arr.push(encodeURIComponent(i)+'='+encodeURIComponent(obj[i]))
 			}
 			var str=arr.join('&')
-			return str?'?'+str:str
+			return (str&&bol)?'?'+str:str
 		},
 		toFixed:function(num,s){ // 保留几位小数
 			if(num===undefined){ // 第一个参数为undefined
@@ -206,49 +206,6 @@
 				nums=nums.toFixed(sn)
 			}
 			return nums
-		},
-		formatInput:function(msg){ // 正则限制input输入
-			var {el,rules,reg,nopass,pass}=msg
-			var doc=window.document
-			var domArr=doc.querySelectorAll(el)
-			domArr.forEach(item=>{
-				formatItem(item)
-			})
-			function formatItem(dom){
-				var nowval=dom.value
-				dom.addEventListener('input',bindLimit)
-				dom.addEventListener('compositionstart',event=>{
-					dom.removeEventListener('input',bindLimit)
-				})
-				dom.addEventListener('compositionend',event=>{
-					bindLimit(event)
-					dom.addEventListener('input',bindLimit)
-				})
-				function bindLimit(event){
-					var inpval=event.target.value
-					var allpass=true
-					if(rules){
-						for(let item of rules){
-							regVal(item.reg,item.nopass)
-							if(!allpass)break
-						}
-					}else{
-						regVal(reg,nopass)
-					}
-					if(allpass){
-						var oldvalue=nowval
-						nowval=event.target.value
-						if(pass)pass(nowval,oldvalue)
-					}
-					function regVal(mreg,mnopass){
-						if(!mreg.test(inpval)){
-							mnopass({nopassValue:inpval})
-							event.target.value=nowval
-							allpass=false
-						}
-					}
-				}
-			}
 		},
 		formSubmit:function(obj){ // 模拟 form 表单提交，常用于 post 下载文件
 			var {document}=window
