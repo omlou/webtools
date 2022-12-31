@@ -5,8 +5,8 @@ export interface Tools {
   queryString:(obj:object,bol?:boolean)=>string
   toFixed:(num:number|string,s?:number|string)=>string
   formSubmit:(obj:object)=>void
-  readText:(url:string,callback:(res:string)=>any)=>void
-  readJSON:(url:string,callback:(res:object)=>any)=>void
+  readText:(url:string)=>Promise<any>
+  readJSON:(url:string)=>Promise<any>
   getStore:(str:string)=>any
   setStore:(str:string,data:any)=>void
   unid:()=>string

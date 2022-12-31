@@ -95,18 +95,20 @@ formSubmit({
 })
 ```
 
-#### readText(url,callback)&ensp;读取文本文件
+#### readText(url)&ensp;读取文本文件
 
 ``` javascript
-readText("./hello.txt",res=>{
+readText("./hello.txt")
+.then(res=>{
   console.log(res)
 })
 ```
 
-#### readJSON(url,callback)&ensp;读取 json 文件
+#### readJSON(url)&ensp;读取 json 文件
 
 ``` javascript
-readJSON("./hello.json",res=>{
+readJSON("./hello.json")
+.then(res=>{
   console.log(res)
 })
 ```

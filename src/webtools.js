@@ -226,21 +226,31 @@
 			document.body.appendChild(form)
 			form.submit()
 		},
-		readText:function(url,callback){ // 读取文本文件
-			let xhr=new XMLHttpRequest()
-			xhr.onload=e=>{
-				callback(xhr.response)
-			}
-			xhr.open('GET',url,true)
-			xhr.send()
+		readText:function(url){ // 读取文本文件
+			return new Promise((res,rej)=>{
+				let xhr=new XMLHttpRequest()
+				xhr.onload=e=>{
+					res(xhr.response)
+				}
+				xhr.onerror=e=>{
+					rej(e)
+				}
+				xhr.open('GET',url,true)
+				xhr.send()
+			})
 		},
-		readJSON:function(url,callback){ // 读取json文件
-			let xhr=new XMLHttpRequest()
-			xhr.onload=e=>{
-				callback(JSON.parse(xhr.response))
-			}
-			xhr.open('GET',url,true)
-			xhr.send()
+		readJSON:function(url){ // 读取json文件
+			return new Promise((res,rej)=>{
+				let xhr=new XMLHttpRequest()
+				xhr.onload=e=>{
+					res(JSON.parse(xhr.response))
+				}
+				xhr.onerror=e=>{
+					rej(e)
+				}
+				xhr.open('GET',url,true)
+				xhr.send()
+			})
 		},
 		getStore:function(str){
 			var storage=localStorage.getItem(str)
