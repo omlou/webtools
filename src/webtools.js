@@ -272,6 +272,29 @@
 		unid:function(){
 			return parseInt(Math.random()*10e13).toString(36)+Date.now().toString(36)
 		},
+		colorRGB:function(str){
+			var reg16=/^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/
+      var regRGB=/^(rgb\(|RGB\()[\s\S]+\)/
+      var co=str.toLowerCase()
+      var res=[]
+      if(reg16.test(co)){
+        if(co.length===4){
+          var conew="#"
+          for(var i=1;i<4;i+=1){
+            conew+=co.slice(i,i+1).concat(co.slice(i,i+1))
+          }
+          co=conew
+        }
+        for(var i=1;i<7;i+=2){
+          res.push(parseInt("0x"+co.slice(i,i+2)))
+        }
+        return res
+      }
+      if(regRGB.test(co)){
+        res=co.replace(/( |\(|\)|rgb|RGB)+/g,"").split(",")
+        return res.map(Number)
+      }
+		},
 		Base64:new Base64()
 	}
 })

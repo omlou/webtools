@@ -10,6 +10,7 @@ export interface Tools {
   getStore:(str:string)=>any
   setStore:(str:string,data:any)=>void
   unid:()=>string
+  colorRGB:(str:string)=>Array<number>
   Base64:{
     encode:(str:string)=>string,
     decode:(str:string)=>string
@@ -26,6 +27,7 @@ export declare const readJSON:Tools["readJSON"]
 export declare const getStore:Tools["getStore"]
 export declare const setStore:Tools["setStore"]
 export declare const unid:Tools["unid"]
+export declare const colorRGB:Tools["colorRGB"]
 export declare const Base64:Tools["Base64"]
 declare const tools:Tools
 export default tools

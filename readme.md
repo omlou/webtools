@@ -135,6 +135,14 @@ setStore('q',b) // key:q, value:tom
 var a=unid() // a='xenj1qoj5lbei4nh2'
 ```
 
+#### colorRGB(str)&ensp;返回一个颜色值的 R 、G 、B 值
+
+``` javascript
+colorRGB("#f00") // [255,0,0]
+colorRGB("#ff7300") // [255,115,0]
+colorRGB("rgb(128,55,255)") // [128,55,255]
+```
+
 #### Base64&ensp;对字符串进行 Base64 编码和解码
 
 ``` javascript
