@@ -134,9 +134,8 @@
 			return res
 		},
 		deepCopy,
-		getQuery:function(){
+		getQuery:function(href=window.location.href){
 			var qobj={}
-			var {href}=window.location
 			var start=href.indexOf("?")
 			if(start===-1)return qobj
 			var search=href.slice(start+1)

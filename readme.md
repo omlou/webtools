@@ -60,11 +60,12 @@ b.n[0]=4 // b={m:"hi",n:[4,2,3]}
 console.log(a) // a={m:"hello",n:[1,2,3]}
 ```
 
-#### getQuery()&ensp;获取当前页面地址栏参数
+#### getQuery(href)&ensp;获取 url 地址的参数，href 不传则获取当前页面地址栏参数
 
 ``` javascript
 /* 如果此时页面的地址为 www.xxx.com?name=tom&id=1 */
-var query=getQuery() // query={name:"tom",id:1}
+var q0=getQuery() // q0={name:"tom",id:1}
+var q1=getQuery("www.xxx.com?type=1") // q1={type:1}
 ```
 
 #### queryString(obj,bol?)&ensp;将对象转化为地址栏参数

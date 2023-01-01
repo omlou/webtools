@@ -1,6 +1,6 @@
 {
   "name": "@xlou/webtools",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "main": "./dist/webtools.min.js",
   "types": "./index.d.ts",
   "keywords": [

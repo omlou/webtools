@@ -1,7 +1,7 @@
 export interface Tools {
   filterObject:(obj:object,str?:string,bol?:boolean)=>object
   deepCopy:(obj:object)=>object
-  getQuery:()=>object
+  getQuery:(href?:string)=>object
   queryString:(obj:object,bol?:boolean)=>string
   toFixed:(num:number|string,s?:number|string)=>string
   formSubmit:(obj:object)=>void
