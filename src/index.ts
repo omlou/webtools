@@ -58,7 +58,7 @@ function utf8_decode(utftext: string): string {
 
 const key = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/="
 
-/* Base64 的转码和解码 */
+/* Transcoding and decoding of Base64 */
 const Base64: Base64Options = {
   encode: function (input: string): string {
     let output = ""
@@ -109,7 +109,7 @@ const Base64: Base64Options = {
   }
 }
 
-/* 引用数据类型的深拷贝 */
+/* Deep copy of reference data types */
 function deepCopy(obj: Object, set: Set<Object> = new Set()): Object{
   if (typeof obj !== 'object' || obj === null) return obj
   if (set.has(obj)) return obj // 防止爆栈
@@ -147,7 +147,7 @@ function deepCopy(obj: Object, set: Set<Object> = new Set()): Object{
   return res
 }
 
-/* 赛选对象中的属性，返回一个新的对象 */
+/* Filter object properties and return a new object */
 function filterObject(obj: Object, str?: string, bol?: boolean): Object {
   let res: any = {}
   if (!str) return Object.assign(res, obj)
@@ -166,7 +166,7 @@ function filterObject(obj: Object, str?: string, bol?: boolean): Object {
   return res
 }
 
-/* 将 url 中的参数转换为对象 */
+/* Convert URL parameters to an object */
 function getQuery(href: string = window.location.href): GeneralObject {
   let qobj = {}
   let start = href.indexOf("?")
@@ -186,7 +186,7 @@ function getQuery(href: string = window.location.href): GeneralObject {
   return qobj
 }
 
-/* 将对象转换为 url 参数 */
+/* Convert an object to URL parameters */
 function queryString(obj: GeneralObject, bol: boolean = false): string {
   let arr = []
   for (let i in obj) {
@@ -197,26 +197,26 @@ function queryString(obj: GeneralObject, bol: boolean = false): string {
   return (str && bol) ? '?' + str : str
 }
 
-/* 保留几位小数 */
+/* Round to a specified number of decimal places */
 function toFixed(num?: number | string, s?: number | string): string | undefined {
-  if (num === undefined) { // 第一个参数为undefined
+  if (num === undefined) { // First argument is undefined
     return undefined
   }
   let numn = Number(num)
-  if (isNaN(numn)) { // 第一个参数不是数字
+  if (isNaN(numn)) { // First argument is not a number
     throw "argument for toFixed error"
   }
-  if (numn > Math.pow(10,21)) { // 第一个参数太大
+  if (numn > Math.pow(10,21)) { // First argument is too large
     return String(numn)
   }
   let sn = Number(s)
-  if (s === undefined || sn == 0) { // 没有第二个参数或者第二个数可以被Number()转化成0
+  if (s === undefined || sn == 0) { // No second argument or second argument can be converted to 0
     return String(Math.round(numn))
   }
-  if (isNaN(sn)) { // 第二个参数不是个数字
+  if (isNaN(sn)) { // Second argument is not a number
     throw "The argument of C.toFixed must be a number"
   }
-  if (sn > 20 || sn < 0) { // 第二个参数超出范围
+  if (sn > 20 || sn < 0) { // Second argument out of range
     throw "The second argument of C.toFixed must be between 0 and 20"
   }
   let nums: string | number = String(numn)
@@ -249,7 +249,8 @@ function toFixed(num?: number | string, s?: number | string): string | undefined
   return nums
 }
 
-function formSubmit(obj: FormOptions): void { // 模拟 form 表单提交，常用于 post 下载文件
+/* Simulate form submission, often used for POST downloading files */
+function formSubmit(obj: FormOptions): void {
   const { document } = window
   const form = document.createElement("form")
   const { data } = obj
@@ -269,7 +270,8 @@ function formSubmit(obj: FormOptions): void { // 模拟 form 表单提交，常�
   form.submit()
 }
 
-function readText(url: string): Promise<any> { // 读取文本文件
+/* Read text file */
+function readText(url: string): Promise<any> {
   return new Promise((res, rej) => {
     const xhr = new XMLHttpRequest()
     xhr.onload = e => {
@@ -283,7 +285,8 @@ function readText(url: string): Promise<any> { // 读取文本文件
   })
 }
 
-function readJSON(url: string): Promise<any> { // 读取json文件
+/* Read JSON file */
+function readJSON(url: string): Promise<any> {
   return new Promise((res, rej) => {
     const xhr = new XMLHttpRequest()
     xhr.onload = e => {

@@ -1,33 +1,44 @@
-export interface Tools {
-  filterObject:(obj:object,str?:string,bol?:boolean)=>object
-  deepCopy:(obj:object)=>object
-  getQuery:(href?:string)=>object
-  queryString:(obj:object,bol?:boolean)=>string
-  toFixed:(num:number|string,s?:number|string)=>string
-  formSubmit:(obj:object)=>void
-  readText:(url:string)=>Promise<any>
-  readJSON:(url:string)=>Promise<any>
-  getStore:(str:string)=>any
-  setStore:(str:string,data:any)=>void
-  unid:()=>string
-  colorRGB:(str:string)=>Array<number>
-  Base64:{
-    encode:(str:string)=>string,
-    decode:(str:string)=>string
-  }
+interface GeneralObject {
+    [prop: string]: string | number | boolean | null | undefined;
 }
-export declare const filterObject:Tools["filterObject"]
-export declare const deepCopy:Tools["deepCopy"]
-export declare const getQuery:Tools["getQuery"]
-export declare const queryString:Tools["queryString"]
-export declare const toFixed:Tools["toFixed"]
-export declare const formSubmit:Tools["formSubmit"]
-export declare const readText:Tools["readText"]
-export declare const readJSON:Tools["readJSON"]
-export declare const getStore:Tools["getStore"]
-export declare const setStore:Tools["setStore"]
-export declare const unid:Tools["unid"]
-export declare const colorRGB:Tools["colorRGB"]
-export declare const Base64:Tools["Base64"]
-declare const tools:Tools
-export default tools
+interface Base64Options {
+    readonly encode: (str: string) => string;
+    readonly decode: (str: string) => string;
+}
+interface FormOptions {
+    action?: string;
+    method?: string;
+    enctype?: string;
+    data?: any;
+}
+declare const Base64: Base64Options;
+declare function deepCopy(obj: Object, set?: Set<Object>): Object;
+declare function filterObject(obj: Object, str?: string, bol?: boolean): Object;
+declare function getQuery(href?: string): GeneralObject;
+declare function queryString(obj: GeneralObject, bol?: boolean): string;
+declare function toFixed(num?: number | string, s?: number | string): string | undefined;
+declare function formSubmit(obj: FormOptions): void;
+declare function readText(url: string): Promise<any>;
+declare function readJSON(url: string): Promise<any>;
+declare function getStore(str: string): any;
+declare function setStore(str: string, data: any): void;
+declare function unid(): string;
+declare function colorRGB(str: string): Array<number> | undefined;
+
+declare const _default: {
+    Base64: Base64Options;
+    deepCopy: typeof deepCopy;
+    filterObject: typeof filterObject;
+    getQuery: typeof getQuery;
+    queryString: typeof queryString;
+    toFixed: typeof toFixed;
+    formSubmit: typeof formSubmit;
+    readText: typeof readText;
+    readJSON: typeof readJSON;
+    getStore: typeof getStore;
+    setStore: typeof setStore;
+    unid: typeof unid;
+    colorRGB: typeof colorRGB;
+};
+
+export { Base64, Base64Options, FormOptions, GeneralObject, colorRGB, deepCopy, _default as default, filterObject, formSubmit, getQuery, getStore, queryString, readJSON, readText, setStore, toFixed, unid };
