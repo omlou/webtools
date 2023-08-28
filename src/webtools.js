@@ -103,14 +103,38 @@
 			return string;
 		}
 	}
-	function deepCopy(obj){
-		let res=(obj.constructor.name==="Array")?[]:{}
-		for(let prop in obj){
-			if(typeof obj[prop]==='object'&&obj[prop]!==null){
-					res[prop]=(obj[prop].constructor.name==="Array")?[]:{}
-					res[prop]=deepCopy(obj[prop])
-			}else{
-					res[prop]=obj[prop]
+	function deepCopy(obj,set=new Set()){
+		if(typeof obj!=='object'||obj===null)return obj
+		if(set.has(obj))return obj // 防止爆栈
+		set.add(obj)
+		let res
+		switch(obj.constructor){
+			case Array:{
+				res=[]
+				for(let item of obj){
+					res.push(deepCopy(item,set))
+				}
+				break
+			}
+			case Set:{
+				res=new Set()
+				obj.forEach(item=>{
+					res.add(deepCopy(item,set))
+				})
+				break
+			}
+			case Map:{
+				res=new Map()
+				obj.forEach((item,i)=>{
+					res.set(deepCopy(i,set),deepCopy(item,set))
+				})
+				break
+			}
+			default:{
+				res={}
+				for(let i in obj){
+					res[i]=deepCopy(obj[i],set)
+				}
 			}
 		}
 		return res
@@ -141,10 +165,11 @@
 			var search=href.slice(start+1)
 			if(search==="")return qobj
 			var qarr=search.split("&")
-			qarr.map(item=>{
+			for(let item of qarr){
+				if(!item)continue
 				let itemarr=item.split("=")
-				qobj[decodeURIComponent(itemarr[0])]=decodeURIComponent(itemarr[1])
-			})
+				qobj[decodeURIComponent(itemarr[0])]=decodeURIComponent((itemarr[1]||""))
+			}
 			return qobj
 		},
 		queryString:function(obj,bol=true){
