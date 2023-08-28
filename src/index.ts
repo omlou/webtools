@@ -7,6 +7,13 @@ interface Base64Options {
   readonly decode: (str: string) => string
 }
 
+interface FormOptions {
+  action?: string
+  method?: string
+  enctype?: string
+  data?: any
+}
+
 function utf8_encode(str: string): string {
   str = str.replace(/\r\n/g, "\n")
   let utftext = ""
@@ -240,4 +247,134 @@ function toFixed(num?: number | string, s?: number | string): string | undefined
     nums = nums.toFixed(sn)
   }
   return nums
+}
+
+function formSubmit(obj: FormOptions): void { // 模拟 form 表单提交，常用于 post 下载文件
+  const { document } = window
+  const form = document.createElement("form")
+  const { data } = obj
+  delete obj.data
+  for (let i in obj) {
+    (obj as any)[i] && (form[i] = (obj as any)[i])
+  }
+  form.style.display = "none"
+  for (let i in data) {
+    const input = document.createElement("input")
+    input.setAttribute("type", "hidden")
+    input.setAttribute("name", i)
+    input.value = data[i]
+    form.appendChild(input)
+  }
+  document.body.appendChild(form)
+  form.submit()
+}
+
+function readText(url: string): Promise<any> { // 读取文本文件
+  return new Promise((res, rej) => {
+    const xhr = new XMLHttpRequest()
+    xhr.onload = e => {
+      res(xhr.response)
+    }
+    xhr.onerror = e => {
+      rej(e)
+    }
+    xhr.open('GET', url, true)
+    xhr.send()
+  })
+}
+
+function readJSON(url: string): Promise<any> { // 读取json文件
+  return new Promise((res, rej) => {
+    const xhr = new XMLHttpRequest()
+    xhr.onload = e => {
+      res(JSON.parse(xhr.response))
+    }
+    xhr.onerror = e => {
+      rej(e)
+    }
+    xhr.open('GET', url, true)
+    xhr.send()
+  })
+}
+
+function getStore(str: string): any {
+  let storage = localStorage.getItem(str)
+  if (typeof storage === "string") {
+    try {
+      storage = JSON.parse(storage)
+    } catch(e) {}
+  }
+  return storage
+}
+
+function setStore(str: string, data: any): void {
+  if (typeof data === 'object' && data !== null) {
+    try {
+      data = JSON.stringify(data)
+    } catch(err) {}
+  }
+  localStorage.setItem(str, data)
+}
+
+function unid(): string {
+  return Math.floor(Math.random() * 10e13).toString(36) + Date.now().toString(36)
+}
+
+function colorRGB(str: string): Array<number> | undefined {
+  const reg16 = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/
+  const regRGB = /^(rgb\(|RGB\()[\s\S]+\)/
+  let co = str.toLowerCase()
+  let res = []
+  if (reg16.test(co)) {
+    if (co.length === 4) {
+      let conew = "#"
+      for (let i = 1; i < 4; i += 1) {
+        conew += co.slice(i, i + 1).concat(co.slice(i, i + 1))
+      }
+      co = conew
+    }
+    for (let i = 1; i < 7; i += 2) {
+      res.push(parseInt("0x" + co.slice(i, i + 2)))
+    }
+    return res
+  }
+  if (regRGB.test(co)) {
+    res = co.replace(/( |\(|\)|rgb|RGB)+/g, "").split(",")
+    return res.map(Number)
+  }
+}
+
+export {
+  GeneralObject,
+  Base64Options,
+  FormOptions,
+  Base64,
+  deepCopy,
+  filterObject,
+  getQuery,
+  queryString,
+  toFixed,
+  formSubmit,
+  readText,
+  readJSON,
+  getStore,
+  setStore,
+  unid,
+  colorRGB
+}
+
+export default {
+  Base64,
+  deepCopy,
+  filterObject,
+  getQuery,
+  queryString,
+  toFixed,
+  formSubmit,
+  readText,
+  readJSON,
+  getStore,
+  setStore,
+  unid,
+  colorRGB
 }
