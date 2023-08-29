@@ -43,9 +43,15 @@ let str = tools.Base64.encode("hello webtools")
 
 ### API
 
-#### deepCopy
+#### deepCopy &ensp; 引用类型的深拷贝
 
-引用类型的深拷贝
+参数说明
+
+```typescript
+function deepCopy(obj: Object, set?: Set<Object>): Object;
+```
+
+使用举例
 
 ``` javascript
 let objA = { m: "hello", n: [1, 2, 3] }
