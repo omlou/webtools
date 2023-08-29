@@ -1,22 +1,23 @@
 ### 介绍
 
-前端开发中常用的小工具
+* 前端开发中常用的工具
+* 如：Base64 编码解码、数据深拷贝、获取地址栏参数等
 
 ### 使用
 
 #### 在传统项目中使用
 
 ```html
-<script src="https://gitee.com/xlou/webtools/raw/master/dist/webtools.min.js"></script>
+<script src="https://unpkg.com/@xlou/webtools@1.1.4/dist/umd/webtools.min.js"></script>
 <!-- 建议下载下来使用 -->
 <script>
-  /* 引入了该 js 文件后，会在 window 上赋值 tools 和 Base64 对象 */
-  var query=tools.getQuery()
-  var str=Base64.encode("hello webtools")
+  /* 引入了该 js 文件后，会在 window 上赋值 tools 对象 */
+  let query = tools.getQuery()
+  let str = Base64.encode("hello webtools")
 </script>
 ```
 
-#### 在 Vue 、React 和 Angular 等项目中使用
+#### 在 Vue 、React 和 Angular 等 node 项目中使用
 
 安装
 
@@ -28,36 +29,28 @@ main.js / main.ts 中使用
 
 ``` javascript
 /* 按需取用 */
-import {Base64,getQuery} from '@xlou/webtools'
+import { Base64, getQuery } from '@xlou/webtools'
 
-var query=getQuery()
-var str=Base64.encode("hello webtools")
+let query = getQuery()
+let str = Base64.encode("hello webtools")
 
 /* 整包使用 */
 import tools from '@xlou/webtools'
 
-var query=tools.getQuery()
-var str=tools.Base64.encode("hello webtools")
+let query = tools.getQuery()
+let str = tools.Base64.encode("hello webtools")
 ```
 
 ### API
 
-#### filterObject(obj,str?,bol?)&ensp;过滤对象
+#### deepCopy(obj: Object, set?: Set<Object>): Object;&ensp;引用类型的深拷贝
 
 ``` javascript
-var a={m:123,n:"hello",p:456,q:789}
-var b=filterObject(a,"p,q") // b={p:456,q:789}
-var c=filterObject(a,"p,q",false) // b={m:123,n:"hello"}
-```
-
-#### deepCopy(obj)&ensp;深拷贝
-
-``` javascript
-var a={m:"hello",n:[1,2,3]}
-var b=deepCopy(a) // b={m:"hello",n:[1,2,3]}
-b.m="hi"
-b.n[0]=4 // b={m:"hi",n:[4,2,3]}
-console.log(a) // a={m:"hello",n:[1,2,3]}
+let objA = { m: "hello", n: [1, 2, 3] }
+let objB = deepCopy(a) // objB => { m: "hello", n: [1, 2, 3] }
+objA.m = "hi"
+objB.n[0] = 4 // objB => { m: "hi", n: [4, 2, 3] }
+console.log(objA) // objA => { m: "hello", n: [1, 2, 3] }
 ```
 
 #### getQuery(href)&ensp;获取 url 地址的参数，href 不传则获取当前页面地址栏参数
@@ -96,6 +89,14 @@ formSubmit({
 })
 ```
 
+#### filterObject(obj,str?,bol?)&ensp;过滤对象
+
+``` javascript
+var a={m:123,n:"hello",p:456,q:789}
+var b=filterObject(a,"p,q") // b={p:456,q:789}
+var c=filterObject(a,"p,q",false) // b={m:123,n:"hello"}
+```
+
 #### readText(url)&ensp;读取文本文件
 
 ``` javascript
@@ -130,6 +131,13 @@ setStore('p',a) // key:p, value:{"m":"hello"}
 setStore('q',b) // key:q, value:tom
 ```
 
+#### Base64&ensp;对字符串进行 Base64 编码和解码
+
+``` javascript
+var a=Base64.encode("你好，Tom") // a='5L2g5aW977yMVG9t'
+var b=Base64.decode('5L2g5aW977yMVG9t') // b="你好，Tom"
+```
+
 #### unid()&ensp;返回一个唯一不重复的 id 字符串
 
 ``` javascript
@@ -142,11 +150,4 @@ var a=unid() // a='xenj1qoj5lbei4nh2'
 colorRGB("#f00") // [255,0,0]
 colorRGB("#ff7300") // [255,115,0]
 colorRGB("rgb(128,55,255)") // [128,55,255]
-```
-
-#### Base64&ensp;对字符串进行 Base64 编码和解码
-
-``` javascript
-var a=Base64.encode("你好，Tom") // a='5L2g5aW977yMVG9t'
-var b=Base64.decode('5L2g5aW977yMVG9t') // b="你好，Tom"
 ```

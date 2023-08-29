@@ -6,7 +6,7 @@ import json from "@rollup/plugin-json"
 import dts from 'rollup-plugin-dts'
 
 const name = "webtools"
-const globalName = "webtools"
+const globalName = "tools"
 const commonPlugins = [
   resolve(),
   commonjs(),
