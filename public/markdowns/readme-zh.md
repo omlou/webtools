@@ -1,40 +1,40 @@
-### Introduction
+### 介绍
 
-* Commonly used tools in frontend development.
-* Examples: Base64 encoding/decoding, deep copying of data, extracting URL parameters, etc.
+* 前端开发中常用的工具
+* 如：Base64 编码解码、数据深拷贝、获取地址栏参数等
 
-### Usage
+### 使用
 
-#### Using in Traditional Projects
+#### 在传统项目中使用
 
 ```html
 <script src="https://unpkg.com/@xlou/webtools@1.1.4/dist/umd/webtools.min.js"></script>
-<!-- It's recommended to download and use the file locally -->
+<!-- 建议下载下来使用 -->
 <script>
-  /* After including this JS file, the tools object will be available on the window */
+  /* 引入了该 js 文件后，会在 window 上赋值 tools 对象 */
   let query = tools.getQuery()
   let str = Base64.encode("hello webtools")
 </script>
 ```
 
-#### Using in Vue, React, Angular, and Other Node Projects
+#### 在 Vue 、React 和 Angular 等 node 项目中使用
 
-Installation
+安装
 
 ``` bash
 npm i @xlou/webtools -S
 ```
 
-In main.js or main.ts
+main.js / main.ts 中使用
 
 ``` javascript
-/* Using specific functions */
+/* 按需取用 */
 import { Base64, getQuery } from '@xlou/webtools'
 
 let query = getQuery()
 let str = Base64.encode("hello webtools")
 
-/* Using the entire package */
+/* 整包使用 */
 import tools from '@xlou/webtools'
 
 let query = tools.getQuery()
@@ -43,15 +43,15 @@ let str = tools.Base64.encode("hello webtools")
 
 ### API
 
-#### deepCopy &ensp; Deep Copy for Reference Types
+#### deepCopy &ensp; 引用类型的深拷贝
 
-Parameter Details
+参数说明
 
 ```typescript
 function deepCopy(obj: any, set?: Set<any>): any;
 ```
 
-Usage Example
+使用举例
 
 ``` javascript
 let objA = { m: "hello", n: [1, 2, 3] }
@@ -61,35 +61,35 @@ objB.n[0] = 4 // objB => { m: "hi", n: [4, 2, 3] }
 console.log(objA) // objA => { m: "hello", n: [1, 2, 3] }
 ```
 
-#### getQuery &ensp; Get URL Parameters
+#### getQuery &ensp; 获取 url 地址的参数
 
-Parameter Details
+参数说明
 
 ``` typescript
 interface GeneralObject {
   [prop: string]: string | number | boolean | null | undefined;
 }
 function getQuery(href?: string): GeneralObject;
-/* If href is not provided, it gets parameters from the current page's URL */
+/* href 不传则获取当前页面地址栏参数 */
 ```
 
-Usage Example
+使用举例
 
 ``` javascript
-/* If the current page's URL is www.xxx.com?name=tom&id=1 */
+/* 如果此时页面的地址为 www.xxx.com?name=tom&id=1 */
 let q0 = getQuery() // q0 => { name: "tom", id: 1 }
 let q1 = getQuery("www.xxx.com?type=1") // q1 => { type: 1 }
 ```
 
-#### queryString &ensp; Convert Object to Query String
+#### queryString &ensp; 将对象转化为地址栏参数
 
-Parameter Details
+参数说明
 
 ``` typescript
 function queryString(obj: GeneralObject, bol?: boolean): string;
 ```
 
-Usage Example
+使用举例
 
 ``` javascript
 let a = { name: "tom", id: 1 }
@@ -97,15 +97,15 @@ let m = queryString(a) // m => "name=tom&id=1"
 let n = queryString(a, true) // n => "?name=tom&id=1"
 ```
 
-#### filterObject &ensp; Filter an Object
+#### filterObject &ensp; 过滤对象
 
-Parameter Details
+参数说明
 
 ``` typescript
 function filterObject(obj: Object, str?: string, bol?: boolean): Object;
 ```
 
-Usage Example
+使用举例
 
 ``` javascript
 let a = { m: 123, n: "hello", p: 456, q: 789 }
@@ -113,51 +113,51 @@ let b = filterObject(a, "p, q") // b => { p: 456, q: 789 }
 let c = filterObject(a, "p, q", false) // b => { m: 123, n: "hello" }
 ```
 
-#### toFixed &ensp; Format Decimal Places
+#### toFixed &ensp; 保留几位小数
 
-Parameter Details
+参数说明
 
 ``` typescript
 function toFixed(num?: number | string, s?: number | string): string | undefined;
 ```
 
-Usage Example
+使用举例
 
 ``` javascript
 let a = 1.335
-let m = a.toFixed(2) // m => 1.33 Using the default toFixed method might lead to unexpected results
+let m = a.toFixed(2) // m => 1.33 使用默认的 toFixed 方法，会出现和正常认知不符情况
 let n = toFixed(a, 2) // n => 1.34
 let p = toFixed(a) // p => 1
 ```
 
-#### formSubmit &ensp; Simulate Form Submission for File Downloads
+#### formSubmit &ensp; js 模拟 form 表单提交，常用于 post 下载文件
 
-Parameter Details
+参数说明
 
 ``` typescript
 function formSubmit(obj: FormOptions): void;
 ```
 
-Usage Example
+使用举例
 
 ``` javascript
 formSubmit({
-  method: "post", // Request type
-  action: "./hello", // Request URL
-  /* ... Other form parameters */
-  data: { name: "tom" } // Request data
+  method: "post", // 请求类型
+  action: "./hello", // 请求地址
+  /* ... 其它 form 表单参数 */
+  data: { name: "tom" } // 请求参数
 })
 ```
 
-#### readText &ensp; Read Text Files
+#### readText &ensp; 读取文本文件
 
-Parameter Details
+参数说明
 
 ``` typescript
 function readText(url: string): Promise<string>;
 ```
 
-Usage Example
+使用举例
 
 ``` javascript
 readText("./hello.txt")
@@ -166,15 +166,15 @@ readText("./hello.txt")
 })
 ```
 
-#### readJSON &ensp; Read JSON Files
+#### readJSON &ensp; 读取 json 文件
 
-Parameter Details
+参数说明
 
 ``` typescript
 function readJSON(url: string): Promise<any>;
 ```
 
-Usage Example
+使用举例
 
 ``` javascript
 readJSON("./hello.json")
@@ -183,30 +183,30 @@ readJSON("./hello.json")
 })
 ```
 
-#### getStore &ensp; Read from localStorage, Parsing JSON if Applicable
+#### getStore &ensp; 读取 localStorage ，如果是 json ，直接返回 js 对象 
 
-Parameter Details
+参数说明
 
 ``` typescript
 function getStore(str: string): any;
 ```
 
-Usage Example
+使用举例
 
 ``` javascript
 /* key: a, value: { "m": "hello" } */
 let b = getStore("a") // b => { m: "hello" }
 ```
 
-#### setStore &ensp; Write to localStorage, Parsing Objects to JSON if Applicable
+#### setStore &ensp; 设置 localStorage ，如果 data 是 js 对象，会尝试转换为 json 再存入
 
-Parameter Details
+参数说明
 
 ``` typescript
 function setStore(str: string, data: any): void;
 ```
 
-Usage Example
+使用举例
 
 ``` javascript
 let a = { m: "hello" }
@@ -215,9 +215,9 @@ setStore('p', a) // key: p, value: { "m": "hello" }
 setStore('q', b) // key: q, value: tom
 ```
 
-#### Base64 &ensp; Encode and Decode Strings using Base64
+#### Base64 &ensp; 对字符串进行 Base64 编码和解码
 
-Parameter Details
+参数说明
 
 ``` typescript
 interface Base64Options {
@@ -227,36 +227,36 @@ interface Base64Options {
 const Base64: Base64Options;
 ```
 
-Usage Example
+使用举例
 
 ``` javascript
-let a = Base64.encode("Hello，Tom") // a => '5L2g5aW977yMVG9t'
-let b = Base64.decode('5L2g5aW977yMVG9t') // b => "Hello，Tom"
+let a = Base64.encode("你好，Tom") // a => '5L2g5aW977yMVG9t'
+let b = Base64.decode('5L2g5aW977yMVG9t') // b => "你好，Tom"
 ```
 
-#### unid &ensp; Generate a Unique ID String
+#### unid &ensp; 返回一个唯一不重复的 id 字符串
 
-Parameter Details
+参数说明
 
 ``` typescript
 function unid(): string;
 ```
 
-Usage Example
+使用举例
 
 ``` javascript
 let a = unid() // a => 'xenj1qoj5lbei4nh2'
 ```
 
-#### colorRGB &ensp; Get RGB Values from a Color
+#### colorRGB &ensp; 返回一个颜色值的 R 、G 、B 值
 
-Parameter Details
+参数说明
 
 ``` typescript
 function colorRGB(str: string): Array<number> | undefined;
 ```
 
-Usage Example
+使用举例
 
 ``` javascript
 colorRGB("#f00") // [255, 0, 0]

@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
     typeof define === 'function' && define.amd ? define(factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.webtools = factory());
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.tools = factory());
 })(this, (function () { 'use strict';
 
     function utf8_encode(str) {
@@ -96,7 +96,7 @@
                     output = output + String.fromCharCode(chr3);
                 }
             }
-            output = utf8_decode(output);
+            output = utf8_decode(output).replace(/\u0000/g, "");
             return output;
         }
     };
@@ -149,6 +149,7 @@
             bol = true;
         if (bol) {
             for (let item of arr) {
+                item = item.trim();
                 obj[item] && (res[item] = obj[item]);
             }
         }

@@ -90,7 +90,7 @@ const Base64 = {
                 output = output + String.fromCharCode(chr3);
             }
         }
-        output = utf8_decode(output);
+        output = utf8_decode(output).replace(/\u0000/g, "");
         return output;
     }
 };
@@ -143,6 +143,7 @@ function filterObject(obj, str, bol) {
         bol = true;
     if (bol) {
         for (let item of arr) {
+            item = item.trim();
             obj[item] && (res[item] = obj[item]);
         }
     }

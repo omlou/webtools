@@ -12,13 +12,13 @@ interface FormOptions {
     data?: any;
 }
 declare const Base64: Base64Options;
-declare function deepCopy(obj: Object, set?: Set<Object>): Object;
+declare function deepCopy(obj: any, set?: Set<any>): any;
 declare function filterObject(obj: Object, str?: string, bol?: boolean): Object;
 declare function getQuery(href?: string): GeneralObject;
 declare function queryString(obj: GeneralObject, bol?: boolean): string;
 declare function toFixed(num?: number | string, s?: number | string): string | undefined;
 declare function formSubmit(obj: FormOptions): void;
-declare function readText(url: string): Promise<any>;
+declare function readText(url: string): Promise<string>;
 declare function readJSON(url: string): Promise<any>;
 declare function getStore(str: string): any;
 declare function setStore(str: string, data: any): void;

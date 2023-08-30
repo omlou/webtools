@@ -104,13 +104,13 @@ const Base64: Base64Options = {
         output = output + String.fromCharCode(chr3)
       }
     }
-    output = utf8_decode(output)
+    output = utf8_decode(output).replace(/\u0000/g,"")
     return output
   }
 }
 
 /* Deep copy of reference data types */
-function deepCopy(obj: Object, set: Set<Object> = new Set()): Object{
+function deepCopy(obj: any, set: Set<any> = new Set()): any{
   if (typeof obj !== 'object' || obj === null) return obj
   if (set.has(obj)) return obj // 防止爆栈
   set.add(obj)
@@ -155,6 +155,7 @@ function filterObject(obj: Object, str?: string, bol?: boolean): Object {
   if (bol === undefined) bol = true
   if (bol) {
     for (let item of arr) {
+      item = item.trim();
       (obj as any)[item] && (res[item] = (obj as any)[item]);
     }
   } else {
@@ -271,7 +272,7 @@ function formSubmit(obj: FormOptions): void {
 }
 
 /* Read text file */
-function readText(url: string): Promise<any> {
+function readText(url: string): Promise<string> {
   return new Promise((res, rej) => {
     const xhr = new XMLHttpRequest()
     xhr.onload = e => {
