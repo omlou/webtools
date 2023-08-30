@@ -1,6 +1,6 @@
 {
   "name": "@xlou/webtools",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "main": "./dist/es/webtools.min.js",
   "module": "./dist/es/webtools.min.js",
   "browser": "./dist/umd/webtools.min.js",
@@ -30,7 +30,7 @@
   "jsdelivr": "dist/umd/webtools.min.js",
   "scripts": {
     "build": "gulp clear && rollup -c",
-    "start": "gulp serve", 
+    "start": "gulp serve",
     "upgrade": "gulp upgrade --host %npm_config_host%"
   },
   "author": "Louis Xu",
@@ -41,19 +41,13 @@
     "@rollup/plugin-node-resolve": "^15.1.0",
     "@rollup/plugin-terser": "^0.4.3",
     "@rollup/plugin-typescript": "^11.1.1",
-    "cross-env": "^7.0.3",
-    "express": "^4.18.2",
     "fs-extra": "^11.1.1",
     "minimist": "^1.2.8",
     "gulp": "^4.0.2",
     "gulp-clean": "^0.4.0",
     "gulp-webserver": "^0.9.1",
-    "multer": "^1.4.5-lts.1",
     "rollup": "^3.24.0",
     "rollup-plugin-dts": "^5.3.0",
-    "rollup-plugin-livereload": "^2.0.5",
-    "rollup-plugin-serve": "^2.0.2",
-    "rollup-plugin-typescript2": "^0.34.1",
     "typescript": "^4.9.5"
   }
 }

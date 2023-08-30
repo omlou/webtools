@@ -16,7 +16,7 @@
 #### 在传统项目中使用
 
 ```html
-<script src="https://unpkg.com/@xlou/webtools@1.1.4/dist/umd/webtools.min.js"></script>
+<script src="https://unpkg.com/@xlou/webtools@1.1.5/dist/umd/webtools.min.js"></script>
 <!-- 建议下载下来使用 -->
 <script>
   /* 引入了该 js 文件后，会在 window 上赋值 tools 对象 */

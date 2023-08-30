@@ -24,10 +24,13 @@ const serve = function() {
 
 async function upgrade() {
   const options = minimist(process.argv.slice(2), { string: 'host', default: '' })
-  console.log("options", options)
   const npm = await fs.readJSON('package.json')
-  const { version } = npm
-  version = options.host || upgradeVersion(version)
+  let { version } = npm
+  if (/^\d+\.\d+\.\d+$/.test(options.host)) {
+    version = options.host
+  } else {
+    version = upgradeVersion(version)
+  }
   npm.version = version
   await fs.writeJSON('package.json', npm, { spaces: 2 })
   upgradeFile("readme.md")
