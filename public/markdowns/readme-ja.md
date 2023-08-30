@@ -1,10 +1,10 @@
 ### 言語
 
-[English](https://github.com/omlou/webtools#readme)  
-[简体中文](https://github.com/omlou/webtools/blob/master/public/markdowns/readme-zh.md)  
-[한국어](https://github.com/omlou/webtools/blob/master/public/markdowns/readme-ko.md)  
-[日本語](https://github.com/omlou/webtools/blob/master/public/markdowns/readme-ja.md)  
-[Français](https://github.com/omlou/webtools/blob/master/public/markdowns/readme-fr.md)  
+* [English](https://github.com/omlou/webtools#readme)
+* [简体中文](https://github.com/omlou/webtools/blob/master/public/markdowns/readme-zh.md)
+* [한국어](https://github.com/omlou/webtools/blob/master/public/markdowns/readme-ko.md)
+* [日本語](https://github.com/omlou/webtools/blob/master/public/markdowns/readme-ja.md)
+* [Français](https://github.com/omlou/webtools/blob/master/public/markdowns/readme-fr.md)
 
 ### 概要
 
