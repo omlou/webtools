@@ -1,4 +1,4 @@
-### Languages
+### Langues
 
 [English](https://github.com/omlou/webtools#readme)  
 [简体中文](https://github.com/omlou/webtools/blob/master/public/markdowns/readme-zh.md)  
@@ -8,24 +8,24 @@
 
 ### Introduction
 
-* Commonly used tools in frontend development.
-* Examples: Base64 encoding/decoding, deep copying of data, extracting URL parameters, etc.
+* Outils couramment utilisés dans le développement frontal
+* Exemples : Encodage et décodage Base64, copie profonde des données, récupération des paramètres de l'URL, etc.
 
-### Usage
+### Utilisation
 
-#### Using in Traditional Projects
+#### Utilisation dans les projets traditionnels
 
 ```html
 <script src="https://unpkg.com/@xlou/webtools@1.1.4/dist/umd/webtools.min.js"></script>
-<!-- It's recommended to download and use the file locally -->
+<!-- Il est recommandé de le télécharger et de l'utiliser localement -->
 <script>
-  /* After including this JS file, the tools object will be available on the window */
+  /* Après avoir importé ce fichier JavaScript, un objet tools sera ajouté à la fenêtre (window) */
   let query = tools.getQuery()
   let str = Base64.encode("hello webtools")
 </script>
 ```
 
-#### Using in Vue, React, Angular, and Other Node Projects
+#### Utilisation dans des projets avec Vue, React, Angular, etc.
 
 Installation
 
@@ -33,16 +33,16 @@ Installation
 npm i @xlou/webtools -S
 ```
 
-In main.js or main.ts
+Utilisation dans main.js / main.ts
 
 ``` javascript
-/* Using specific functions */
+/* Importation des fonctions requises */
 import { Base64, getQuery } from '@xlou/webtools'
 
 let query = getQuery()
 let str = Base64.encode("hello webtools")
 
-/* Using the entire package */
+/* Importation de l'ensemble du package */
 import tools from '@xlou/webtools'
 
 let query = tools.getQuery()
@@ -51,15 +51,15 @@ let str = tools.Base64.encode("hello webtools")
 
 ### API
 
-#### deepCopy &ensp; Deep Copy for Reference Types
+#### deepCopy &ensp; Copie profonde des types de référence
 
-Parameter Details
+Description des paramètres
 
 ```typescript
 function deepCopy(obj: any, set?: Set<any>): any;
 ```
 
-Usage Example
+Exemple d'utilisation
 
 ``` javascript
 let objA = { m: "hello", n: [1, 2, 3] }
@@ -69,35 +69,35 @@ objB.n[0] = 4 // objB => { m: "hi", n: [4, 2, 3] }
 console.log(objA) // objA => { m: "hello", n: [1, 2, 3] }
 ```
 
-#### getQuery &ensp; Get URL Parameters
+#### getQuery &ensp; Récupération des paramètres de l'URL
 
-Parameter Details
+Description des paramètres
 
 ``` typescript
 interface GeneralObject {
   [prop: string]: string | number | boolean | null | undefined;
 }
 function getQuery(href?: string): GeneralObject;
-/* If href is not provided, it gets parameters from the current page's URL */
+/* Si href n'est pas spécifié, les paramètres de l'URL de la page actuelle seront récupérés */
 ```
 
-Usage Example
+Exemple d'utilisation
 
 ``` javascript
-/* If the current page's URL is www.xxx.com?name=tom&id=1 */
+/* Supposons que l'URL de la page soit www.xxx.com?name=tom&id=1 */
 let q0 = getQuery() // q0 => { name: "tom", id: 1 }
 let q1 = getQuery("www.xxx.com?type=1") // q1 => { type: 1 }
 ```
 
-#### queryString &ensp; Convert Object to Query String
+#### queryString &ensp; Conversion d'un objet en paramètres d'URL
 
-Parameter Details
+Description des paramètres
 
 ``` typescript
 function queryString(obj: GeneralObject, bol?: boolean): string;
 ```
 
-Usage Example
+Exemple d'utilisation
 
 ``` javascript
 let a = { name: "tom", id: 1 }
@@ -105,15 +105,15 @@ let m = queryString(a) // m => "name=tom&id=1"
 let n = queryString(a, true) // n => "?name=tom&id=1"
 ```
 
-#### filterObject &ensp; Filter an Object
+#### filterObject &ensp; Filtrage d'objets
 
-Parameter Details
+Description des paramètres
 
 ``` typescript
 function filterObject(obj: Object, str?: string, bol?: boolean): Object;
 ```
 
-Usage Example
+Exemple d'utilisation
 
 ``` javascript
 let a = { m: 123, n: "hello", p: 456, q: 789 }
@@ -121,51 +121,51 @@ let b = filterObject(a, "p, q") // b => { p: 456, q: 789 }
 let c = filterObject(a, "p, q", false) // b => { m: 123, n: "hello" }
 ```
 
-#### toFixed &ensp; Format Decimal Places
+#### toFixed &ensp; Arrondi à un certain nombre de décimales
 
-Parameter Details
+Description des paramètres
 
 ``` typescript
 function toFixed(num?: number | string, s?: number | string): string | undefined;
 ```
 
-Usage Example
+Exemple d'utilisation
 
 ``` javascript
 let a = 1.335
-let m = a.toFixed(2) // m => 1.33 Using the default toFixed method might lead to unexpected results
+let m = a.toFixed(2) // m => 1.33 En utilisant la méthode toFixed par défaut, les résultats peuvent différer des attentes habituelles
 let n = toFixed(a, 2) // n => 1.34
 let p = toFixed(a) // p => 1
 ```
 
-#### formSubmit &ensp; Simulate Form Submission for File Downloads
+#### formSubmit &ensp; Simulation de soumission de formulaire en JavaScript, souvent utilisée pour télécharger des fichiers avec la méthode POST
 
-Parameter Details
+Description des paramètres
 
 ``` typescript
 function formSubmit(obj: FormOptions): void;
 ```
 
-Usage Example
+Exemple d'utilisation
 
 ``` javascript
 formSubmit({
-  method: "post", // Request type
-  action: "./hello", // Request URL
-  /* ... Other form parameters */
-  data: { name: "tom" } // Request data
+  method: "post", // Type de requête
+  action: "./hello", // Adresse de la requête
+  /* ... Autres paramètres de formulaire */
+  data: { name: "tom" } // Paramètres de la requête
 })
 ```
 
-#### readText &ensp; Read Text Files
+#### readText &ensp; Lecture de fichiers texte
 
-Parameter Details
+Description des paramètres
 
 ``` typescript
 function readText(url: string): Promise<string>;
 ```
 
-Usage Example
+Exemple d'utilisation
 
 ``` javascript
 readText("./hello.txt")
@@ -174,15 +174,15 @@ readText("./hello.txt")
 })
 ```
 
-#### readJSON &ensp; Read JSON Files
+#### readJSON &ensp; Lecture de fichiers JSON
 
-Parameter Details
+Description des paramètres
 
 ``` typescript
 function readJSON(url: string): Promise<any>;
 ```
 
-Usage Example
+Exemple d'utilisation
 
 ``` javascript
 readJSON("./hello.json")
@@ -191,41 +191,43 @@ readJSON("./hello.json")
 })
 ```
 
-#### getStore &ensp; Read from localStorage, Parsing JSON if Applicable
+#### getStore &ensp; Lecture de données depuis le stockage localStorage ; si c'est du JSON, un objet JavaScript est renvoyé directement
 
-Parameter Details
+Description des paramètres
 
 ``` typescript
 function getStore(str: string): any;
 ```
 
-Usage Example
+Exemple d'utilisation
 
 ``` javascript
-/* key: a, value: { "m": "hello" } */
+/* Clé : a, Valeur : { "m": "hello" } */
 let b = getStore("a") // b => { m: "hello" }
 ```
 
-#### setStore &ensp; Write to localStorage, Parsing Objects to JSON if Applicable
+#### setStore &ensp; Stockage de données dans le localStorage ; si les données sont un objet JavaScript, elles sont converties en JSON avant d'être stockées
 
-Parameter Details
+Description des paramètres
 
 ``` typescript
 function setStore(str: string, data: any): void;
 ```
 
-Usage Example
+Exemple d'utilisation
 
 ``` javascript
-let a = { m: "hello" }
+let a =
+
+ { m: "hello" }
 let b = "tom"
-setStore('p', a) // key: p, value: { "m": "hello" }
-setStore('q', b) // key: q, value: tom
+setStore('p', a) // Clé : p, Valeur : { "m": "hello" }
+setStore('q', b) // Clé : q, Valeur : tom
 ```
 
-#### Base64 &ensp; Encode and Decode Strings using Base64
+#### Base64 &ensp; Encodage et décodage Base64 des chaînes
 
-Parameter Details
+Description des paramètres
 
 ``` typescript
 interface Base64Options {
@@ -235,36 +237,36 @@ interface Base64Options {
 const Base64: Base64Options;
 ```
 
-Usage Example
+Exemple d'utilisation
 
 ``` javascript
-let a = Base64.encode("Hello，Tom") // a => '5L2g5aW977yMVG9t'
-let b = Base64.decode('5L2g5aW977yMVG9t') // b => "Hello，Tom"
+let a = Base64.encode("你好，Tom") // a => '5L2g5aW977yMVG9t'
+let b = Base64.decode('5L2g5aW977yMVG9t') // b => "你好，Tom"
 ```
 
-#### unid &ensp; Generate a Unique ID String
+#### unid &ensp; Génération d'une chaîne d'identifiant unique et non répétée
 
-Parameter Details
+Description des paramètres
 
 ``` typescript
 function unid(): string;
 ```
 
-Usage Example
+Exemple d'utilisation
 
 ``` javascript
 let a = unid() // a => 'xenj1qoj5lbei4nh2'
 ```
 
-#### colorRGB &ensp; Get RGB Values from a Color
+#### colorRGB &ensp; Renvoie les valeurs R, G et B d'une couleur
 
-Parameter Details
+Description des paramètres
 
 ``` typescript
 function colorRGB(str: string): Array<number> | undefined;
 ```
 
-Usage Example
+Exemple d'utilisation
 
 ``` javascript
 colorRGB("#f00") // [255, 0, 0]

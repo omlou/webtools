@@ -1,4 +1,4 @@
-### Languages
+### 언어
 
 [English](https://github.com/omlou/webtools#readme)  
 [简体中文](https://github.com/omlou/webtools/blob/master/public/markdowns/readme-zh.md)  
@@ -6,43 +6,43 @@
 [日本語](https://github.com/omlou/webtools/blob/master/public/markdowns/readme-ja.md)  
 [Français](https://github.com/omlou/webtools/blob/master/public/markdowns/readme-fr.md)  
 
-### Introduction
+### 소개
 
-* Commonly used tools in frontend development.
-* Examples: Base64 encoding/decoding, deep copying of data, extracting URL parameters, etc.
+* 프론트엔드 개발에서 자주 사용되는 도구들입니다.
+* 예시: Base64 인코딩/디코딩, 데이터 깊은 복사, URL 매개변수 추출 등.
 
-### Usage
+### 사용법
 
-#### Using in Traditional Projects
+#### 전통적인 프로젝트에서 사용하기
 
 ```html
 <script src="https://unpkg.com/@xlou/webtools@1.1.4/dist/umd/webtools.min.js"></script>
-<!-- It's recommended to download and use the file locally -->
+<!-- 파일을 로컬로 다운로드하여 사용하는 것이 좋습니다. -->
 <script>
-  /* After including this JS file, the tools object will be available on the window */
+  /* 이 JS 파일을 포함한 후, tools 객체가 window에 사용 가능해집니다 */
   let query = tools.getQuery()
   let str = Base64.encode("hello webtools")
 </script>
 ```
 
-#### Using in Vue, React, Angular, and Other Node Projects
+#### Vue, React, Angular 및 기타 Node 프로젝트에서 사용하기
 
-Installation
+설치
 
-``` bash
+```bash
 npm i @xlou/webtools -S
 ```
 
-In main.js or main.ts
+`main.js` 또는 `main.ts`에서
 
-``` javascript
-/* Using specific functions */
+```javascript
+/* 특정 함수 사용 */
 import { Base64, getQuery } from '@xlou/webtools'
 
 let query = getQuery()
 let str = Base64.encode("hello webtools")
 
-/* Using the entire package */
+/* 전체 패키지 사용 */
 import tools from '@xlou/webtools'
 
 let query = tools.getQuery()
@@ -51,17 +51,17 @@ let str = tools.Base64.encode("hello webtools")
 
 ### API
 
-#### deepCopy &ensp; Deep Copy for Reference Types
+#### deepCopy &ensp; 참조 유형에 대한 깊은 복사
 
-Parameter Details
+매개 변수 정보
 
 ```typescript
 function deepCopy(obj: any, set?: Set<any>): any;
 ```
 
-Usage Example
+사용 예시
 
-``` javascript
+```javascript
 let objA = { m: "hello", n: [1, 2, 3] }
 let objB = deepCopy(a) // objB => { m: "hello", n: [1, 2, 3] }
 objA.m = "hi"
@@ -69,204 +69,206 @@ objB.n[0] = 4 // objB => { m: "hi", n: [4, 2, 3] }
 console.log(objA) // objA => { m: "hello", n: [1, 2, 3] }
 ```
 
-#### getQuery &ensp; Get URL Parameters
+#### getQuery &ensp; URL 매개변수 가져오기
 
-Parameter Details
+매개 변수 정보
 
-``` typescript
+```typescript
 interface GeneralObject {
   [prop: string]: string | number | boolean | null | undefined;
 }
 function getQuery(href?: string): GeneralObject;
-/* If href is not provided, it gets parameters from the current page's URL */
+/* href가 제공되지 않으면 현재 페이지의 URL에서 매개변수를 가져옵니다 */
 ```
 
-Usage Example
+사용 예시
 
-``` javascript
-/* If the current page's URL is www.xxx.com?name=tom&id=1 */
+```javascript
+/* 현재 페이지의 URL이 www.xxx.com?name=tom&id=1 인 경우 */
 let q0 = getQuery() // q0 => { name: "tom", id: 1 }
 let q1 = getQuery("www.xxx.com?type=1") // q1 => { type: 1 }
 ```
 
-#### queryString &ensp; Convert Object to Query String
+#### queryString &ensp; 객체를 쿼리 문자열로 변환
 
-Parameter Details
+매개 변수 정보
 
-``` typescript
+```typescript
 function queryString(obj: GeneralObject, bol?: boolean): string;
 ```
 
-Usage Example
+사용 예시
 
-``` javascript
+```javascript
 let a = { name: "tom", id: 1 }
 let m = queryString(a) // m => "name=tom&id=1"
 let n = queryString(a, true) // n => "?name=tom&id=1"
 ```
 
-#### filterObject &ensp; Filter an Object
+#### filterObject &ensp; 객체 필터링
 
-Parameter Details
+매개 변수 정보
 
-``` typescript
+```typescript
 function filterObject(obj: Object, str?: string, bol?: boolean): Object;
 ```
 
-Usage Example
+사용 예시
 
-``` javascript
+```javascript
 let a = { m: 123, n: "hello", p: 456, q: 789 }
 let b = filterObject(a, "p, q") // b => { p: 456, q: 789 }
 let c = filterObject(a, "p, q", false) // b => { m: 123, n: "hello" }
 ```
 
-#### toFixed &ensp; Format Decimal Places
+#### toFixed &ensp; 소수 자릿수 서식 지정
 
-Parameter Details
+매개 변수 정보
 
-``` typescript
+```typescript
 function toFixed(num?: number | string, s?: number | string): string | undefined;
 ```
 
-Usage Example
+사용 예시
 
-``` javascript
+```javascript
 let a = 1.335
-let m = a.toFixed(2) // m => 1.33 Using the default toFixed method might lead to unexpected results
+let m = a.toFixed(2) // m => 1.33 기본 toFixed 메서드를 사용하면 예상치 못한 결과가 나올 수 있습니다
 let n = toFixed(a, 2) // n => 1.34
 let p = toFixed(a) // p => 1
 ```
 
-#### formSubmit &ensp; Simulate Form Submission for File Downloads
+#### formSubmit &ensp; 파일 다운로드를 위한 Form 제출 시뮬레이션
 
-Parameter Details
+매개 변수 정보
 
-``` typescript
+```typescript
 function formSubmit(obj: FormOptions): void;
 ```
 
-Usage Example
+사용 예시
 
-``` javascript
+```javascript
 formSubmit({
-  method: "post", // Request type
-  action: "./hello", // Request URL
-  /* ... Other form parameters */
-  data: { name: "tom" } // Request data
+  method: "post", // 요청 유형
+  action: "./hello", // 요청 URL
+  /* ... 기타 form 매개변수 */
+  data: { name: "tom" } // 요청 데이터
 })
 ```
 
-#### readText &ensp; Read Text Files
+#### readText &ensp; 텍스트 파일 읽기
 
-Parameter Details
+매개 변수 정보
 
-``` typescript
+```typescript
 function readText(url: string): Promise<string>;
 ```
 
-Usage Example
+사용 예시
 
-``` javascript
+```javascript
 readText("./hello.txt")
 .then(res => {
   console.log(res)
 })
 ```
 
-#### readJSON &ensp; Read JSON Files
+#### readJSON &ensp; JSON 파일 읽기
 
-Parameter Details
+매개 변수 정보
 
-``` typescript
+```typescript
 function readJSON(url: string): Promise<any>;
 ```
 
-Usage Example
+사용 예시
 
-``` javascript
+```javascript
 readJSON("./hello.json")
 .then(res => {
   console.log(res)
 })
 ```
 
-#### getStore &ensp; Read from localStorage, Parsing JSON if Applicable
+#### getStore &ensp; localStorage에서 읽기, 적용 가능한 경우 JSON 파싱
 
-Parameter Details
+매개 변수 정보
 
-``` typescript
+```typescript
 function getStore(str: string): any;
 ```
 
-Usage Example
+사용 예시
 
-``` javascript
-/* key: a, value: { "m": "hello" } */
+```javascript
+/* 키: a, 값: { "m": "hello" } */
 let b = getStore("a") // b => { m: "hello" }
 ```
 
-#### setStore &ensp; Write to localStorage, Parsing Objects to JSON if Applicable
+#### setStore &ensp; localStorage에 쓰기, 객체를 JSON으로 변환하여 적용 가능한 경우
 
-Parameter Details
+매개 변수 정보
 
-``` typescript
+```typescript
 function setStore(str: string, data: any): void;
 ```
 
-Usage Example
+사용 예시
 
-``` javascript
+```javascript
 let a = { m: "hello" }
 let b = "tom"
-setStore('p', a) // key: p, value: { "m": "hello" }
-setStore('q', b) // key: q, value: tom
+setStore('p', a) // 키: p, 값: { "m": "hello" }
+setStore('q', b) // 키: q, 값: tom
 ```
 
-#### Base64 &ensp; Encode and Decode Strings using Base64
+#### Base64 &ensp; Base64를 사용하여 문자열 인코딩 및 디코딩
 
-Parameter Details
+매개 변수 정보
 
-``` typescript
+```typescript
 interface Base64Options {
-  readonly encode: (str: string) => string;
+  readonly encode: (
+
+str: string) => string;
   readonly decode: (str: string) => string;
 }
 const Base64: Base64Options;
 ```
 
-Usage Example
+사용 예시
 
-``` javascript
-let a = Base64.encode("Hello，Tom") // a => '5L2g5aW977yMVG9t'
-let b = Base64.decode('5L2g5aW977yMVG9t') // b => "Hello，Tom"
+```javascript
+let a = Base64.encode("안녕하세요, Tom") // a => '5L2g5aW977yMVG9t'
+let b = Base64.decode('5L2g5aW977yMVG9t') // b => "안녕하세요, Tom"
 ```
 
-#### unid &ensp; Generate a Unique ID String
+#### unid &ensp; 고유한 ID 문자열 생성
 
-Parameter Details
+매개 변수 정보
 
-``` typescript
+```typescript
 function unid(): string;
 ```
 
-Usage Example
+사용 예시
 
-``` javascript
+```javascript
 let a = unid() // a => 'xenj1qoj5lbei4nh2'
 ```
 
-#### colorRGB &ensp; Get RGB Values from a Color
+#### colorRGB &ensp; 색상의 RGB 값을 가져오기
 
-Parameter Details
+매개 변수 정보
 
-``` typescript
+```typescript
 function colorRGB(str: string): Array<number> | undefined;
 ```
 
-Usage Example
+사용 예시
 
-``` javascript
+```javascript
 colorRGB("#f00") // [255, 0, 0]
 colorRGB("#ff7300") // [255, 115, 0]
 colorRGB("rgb(128, 55, 255)") // [128, 55, 255]

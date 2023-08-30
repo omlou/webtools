@@ -1,4 +1,4 @@
-### Languages
+### 言語
 
 [English](https://github.com/omlou/webtools#readme)  
 [简体中文](https://github.com/omlou/webtools/blob/master/public/markdowns/readme-zh.md)  
@@ -6,43 +6,43 @@
 [日本語](https://github.com/omlou/webtools/blob/master/public/markdowns/readme-ja.md)  
 [Français](https://github.com/omlou/webtools/blob/master/public/markdowns/readme-fr.md)  
 
-### Introduction
+### 概要
 
-* Commonly used tools in frontend development.
-* Examples: Base64 encoding/decoding, deep copying of data, extracting URL parameters, etc.
+* フロントエンド開発で一般的に使用されるツール
+* 例：Base64エンコードとデコード、データの深いコピー、URLのパラメーター取得など
 
-### Usage
+### 使用法
 
-#### Using in Traditional Projects
+#### 伝統的なプロジェクトでの使用
 
 ```html
 <script src="https://unpkg.com/@xlou/webtools@1.1.4/dist/umd/webtools.min.js"></script>
-<!-- It's recommended to download and use the file locally -->
+<!-- ダウンロードして使用することをおすすめします -->
 <script>
-  /* After including this JS file, the tools object will be available on the window */
+  /* このjsファイルをインポートすると、windowにtoolsオブジェクトが追加されます */
   let query = tools.getQuery()
   let str = Base64.encode("hello webtools")
 </script>
 ```
 
-#### Using in Vue, React, Angular, and Other Node Projects
+#### Vue、React、Angularなどのノードプロジェクトでの使用
 
-Installation
+インストール
 
 ``` bash
 npm i @xlou/webtools -S
 ```
 
-In main.js or main.ts
+main.js / main.ts での使用
 
 ``` javascript
-/* Using specific functions */
+/* 必要なものだけを使用 */
 import { Base64, getQuery } from '@xlou/webtools'
 
 let query = getQuery()
 let str = Base64.encode("hello webtools")
 
-/* Using the entire package */
+/* パッケージ全体を使用 */
 import tools from '@xlou/webtools'
 
 let query = tools.getQuery()
@@ -51,15 +51,15 @@ let str = tools.Base64.encode("hello webtools")
 
 ### API
 
-#### deepCopy &ensp; Deep Copy for Reference Types
+#### deepCopy &ensp; 参照型の深いコピー
 
-Parameter Details
+パラメーターの説明
 
 ```typescript
 function deepCopy(obj: any, set?: Set<any>): any;
 ```
 
-Usage Example
+使用例
 
 ``` javascript
 let objA = { m: "hello", n: [1, 2, 3] }
@@ -69,35 +69,35 @@ objB.n[0] = 4 // objB => { m: "hi", n: [4, 2, 3] }
 console.log(objA) // objA => { m: "hello", n: [1, 2, 3] }
 ```
 
-#### getQuery &ensp; Get URL Parameters
+#### getQuery &ensp; URLのパラメーターを取得
 
-Parameter Details
+パラメーターの説明
 
 ``` typescript
 interface GeneralObject {
   [prop: string]: string | number | boolean | null | undefined;
 }
 function getQuery(href?: string): GeneralObject;
-/* If href is not provided, it gets parameters from the current page's URL */
+/* hrefを渡さない場合、現在のページのURLのパラメーターを取得します */
 ```
 
-Usage Example
+使用例
 
 ``` javascript
-/* If the current page's URL is www.xxx.com?name=tom&id=1 */
+/* この時、ページのURLが www.xxx.com?name=tom&id=1 であるとします */
 let q0 = getQuery() // q0 => { name: "tom", id: 1 }
 let q1 = getQuery("www.xxx.com?type=1") // q1 => { type: 1 }
 ```
 
-#### queryString &ensp; Convert Object to Query String
+#### queryString &ensp; オブジェクトをURLのパラメーターに変換
 
-Parameter Details
+パラメーターの説明
 
 ``` typescript
 function queryString(obj: GeneralObject, bol?: boolean): string;
 ```
 
-Usage Example
+使用例
 
 ``` javascript
 let a = { name: "tom", id: 1 }
@@ -105,15 +105,15 @@ let m = queryString(a) // m => "name=tom&id=1"
 let n = queryString(a, true) // n => "?name=tom&id=1"
 ```
 
-#### filterObject &ensp; Filter an Object
+#### filterObject &ensp; オブジェクトをフィルタリング
 
-Parameter Details
+パラメーターの説明
 
 ``` typescript
 function filterObject(obj: Object, str?: string, bol?: boolean): Object;
 ```
 
-Usage Example
+使用例
 
 ``` javascript
 let a = { m: 123, n: "hello", p: 456, q: 789 }
@@ -121,51 +121,51 @@ let b = filterObject(a, "p, q") // b => { p: 456, q: 789 }
 let c = filterObject(a, "p, q", false) // b => { m: 123, n: "hello" }
 ```
 
-#### toFixed &ensp; Format Decimal Places
+#### toFixed &ensp; 指定した小数点以下の桁数を保持
 
-Parameter Details
+パラメーターの説明
 
 ``` typescript
 function toFixed(num?: number | string, s?: number | string): string | undefined;
 ```
 
-Usage Example
+使用例
 
 ``` javascript
 let a = 1.335
-let m = a.toFixed(2) // m => 1.33 Using the default toFixed method might lead to unexpected results
+let m = a.toFixed(2) // m => 1.33 デフォルトのtoFixedメソッドを使用すると、通常の認識とは異なる結果になることがあります
 let n = toFixed(a, 2) // n => 1.34
 let p = toFixed(a) // p => 1
 ```
 
-#### formSubmit &ensp; Simulate Form Submission for File Downloads
+#### formSubmit &ensp; JavaScriptでフォームを送信し、ファイルをPOSTでダウンロードする
 
-Parameter Details
+パラメーターの説明
 
 ``` typescript
 function formSubmit(obj: FormOptions): void;
 ```
 
-Usage Example
+使用例
 
 ``` javascript
 formSubmit({
-  method: "post", // Request type
-  action: "./hello", // Request URL
-  /* ... Other form parameters */
-  data: { name: "tom" } // Request data
+  method: "post", // リクエストの種類
+  action: "./hello", // リクエスト先のアドレス
+  /* ... その他のフォームパラメーター */
+  data: { name: "tom" } // リクエストのパラメーター
 })
 ```
 
-#### readText &ensp; Read Text Files
+#### readText &ensp; テキストファイルを読み込む
 
-Parameter Details
+パラメーターの説明
 
 ``` typescript
 function readText(url: string): Promise<string>;
 ```
 
-Usage Example
+使用例
 
 ``` javascript
 readText("./hello.txt")
@@ -174,58 +174,60 @@ readText("./hello.txt")
 })
 ```
 
-#### readJSON &ensp; Read JSON Files
+#### readJSON &ensp; JSONファイルを読み込む
 
-Parameter Details
+パラメーターの説明
 
 ``` typescript
 function readJSON(url: string): Promise<any>;
 ```
 
-Usage Example
+使用例
 
 ``` javascript
-readJSON("./hello.json")
+readJSON
+
+("./hello.json")
 .then(res => {
   console.log(res)
 })
 ```
 
-#### getStore &ensp; Read from localStorage, Parsing JSON if Applicable
+#### getStore &ensp; localStorageを読み込む。もしデータがJSON形式なら、直接JavaScriptのオブジェクトとして返されます
 
-Parameter Details
+パラメーターの説明
 
 ``` typescript
 function getStore(str: string): any;
 ```
 
-Usage Example
+使用例
 
 ``` javascript
-/* key: a, value: { "m": "hello" } */
+/* キー: a, 値: { "m": "hello" } */
 let b = getStore("a") // b => { m: "hello" }
 ```
 
-#### setStore &ensp; Write to localStorage, Parsing Objects to JSON if Applicable
+#### setStore &ensp; localStorageを設定する。データがJavaScriptのオブジェクトの場合、JSONに変換して保存されます
 
-Parameter Details
+パラメーターの説明
 
 ``` typescript
 function setStore(str: string, data: any): void;
 ```
 
-Usage Example
+使用例
 
 ``` javascript
 let a = { m: "hello" }
 let b = "tom"
-setStore('p', a) // key: p, value: { "m": "hello" }
-setStore('q', b) // key: q, value: tom
+setStore('p', a) // キー: p, 値: { "m": "hello" }
+setStore('q', b) // キー: q, 値: tom
 ```
 
-#### Base64 &ensp; Encode and Decode Strings using Base64
+#### Base64 &ensp; 文字列をBase64でエンコードとデコード
 
-Parameter Details
+パラメーターの説明
 
 ``` typescript
 interface Base64Options {
@@ -235,36 +237,36 @@ interface Base64Options {
 const Base64: Base64Options;
 ```
 
-Usage Example
+使用例
 
 ``` javascript
-let a = Base64.encode("Hello，Tom") // a => '5L2g5aW977yMVG9t'
-let b = Base64.decode('5L2g5aW977yMVG9t') // b => "Hello，Tom"
+let a = Base64.encode("你好，Tom") // a => '5L2g5aW977yMVG9t'
+let b = Base64.decode('5L2g5aW977yMVG9t') // b => "你好，Tom"
 ```
 
-#### unid &ensp; Generate a Unique ID String
+#### unid &ensp; 一意で重複しないID文字列を生成
 
-Parameter Details
+パラメーターの説明
 
 ``` typescript
 function unid(): string;
 ```
 
-Usage Example
+使用例
 
 ``` javascript
 let a = unid() // a => 'xenj1qoj5lbei4nh2'
 ```
 
-#### colorRGB &ensp; Get RGB Values from a Color
+#### colorRGB &ensp; 色の値をR、G、B値で返す
 
-Parameter Details
+パラメーターの説明
 
 ``` typescript
 function colorRGB(str: string): Array<number> | undefined;
 ```
 
-Usage Example
+使用例
 
 ``` javascript
 colorRGB("#f00") // [255, 0, 0]
