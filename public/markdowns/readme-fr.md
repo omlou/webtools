@@ -2,8 +2,8 @@
 
 * [English](https://github.com/omlou/webtools#readme)
 * [简体中文](https://github.com/omlou/webtools/blob/master/public/markdowns/readme-zh.md)
-* [한국어](https://github.com/omlou/webtools/blob/master/public/markdowns/readme-ko.md)
 * [日本語](https://github.com/omlou/webtools/blob/master/public/markdowns/readme-ja.md)
+* [한국어](https://github.com/omlou/webtools/blob/master/public/markdowns/readme-ko.md)
 * [Français](https://github.com/omlou/webtools/blob/master/public/markdowns/readme-fr.md)
 
 ### Introduction
@@ -240,8 +240,8 @@ const Base64: Base64Options;
 Exemple d'utilisation
 
 ``` javascript
-let a = Base64.encode("你好，Tom") // a => '5L2g5aW977yMVG9t'
-let b = Base64.decode('5L2g5aW977yMVG9t') // b => "你好，Tom"
+let a = Base64.encode("Hello，Tom") // a => '5L2g5aW977yMVG9t'
+let b = Base64.decode('5L2g5aW977yMVG9t') // b => "Hello，Tom"
 ```
 
 #### unid &ensp; Génération d'une chaîne d'identifiant unique et non répétée

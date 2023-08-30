@@ -27,11 +27,12 @@
     "url": "https://github.com/omlou/webtools.git"
   },
   "unpkg": "dist/umd/webtools.min.js",
-  "jsdelivr": "dist/umd/clean.min.js",
+  "jsdelivr": "dist/umd/webtools.min.js",
   "scripts": {
     "build": "gulp clear && rollup -c",
-    "start": "gulp serve",
-    "commit": "gulp update --host %npm_config_host% && npm publish --access public"
+    "start": "gulp serve", 
+    "upgrade": "gulp upgrade", 
+    "commit": "npm publish --access public"
   },
   "author": "Louis Xu",
   "license": "MIT",
@@ -44,6 +45,7 @@
     "cross-env": "^7.0.3",
     "express": "^4.18.2",
     "fs-extra": "^11.1.1",
+    "minimist": "^1.2.8",
     "gulp": "^4.0.2",
     "gulp-clean": "^0.4.0",
     "gulp-webserver": "^0.9.1",
