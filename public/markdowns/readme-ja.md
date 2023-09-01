@@ -16,7 +16,7 @@
 #### 伝統的なプロジェクトでの使用
 
 ```html
-<script src="https://unpkg.com/@xlou/webtools@1.1.5/dist/umd/webtools.min.js"></script>
+<script src="https://unpkg.com/@xlou/webtools@1.1.6/dist/umd/webtools.min.js"></script>
 <!-- ダウンロードして使用することをおすすめします -->
 <script>
   /* このjsファイルをインポートすると、windowにtoolsオブジェクトが追加されます */
