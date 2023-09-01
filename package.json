@@ -7,9 +7,16 @@
   "exports": {
     ".": {
       "types": "./index.d.ts",
-      "umd": "./dist/umd/webtools.min.js",
-      "es": "./dist/es/webtools.min.js",
+      "require": "./dist/umd/webtools.min.js",
       "default": "./dist/es/webtools.min.js"
+    },
+    "./es": {
+      "types": "./index.d.ts",
+      "default": "./dist/es/webtools.min.js"
+    },
+    "./umd": {
+      "types": "./index.d.ts",
+      "default": "./dist/umd/webtools.min.js"
     }
   },
   "type": "module",
@@ -42,12 +49,13 @@
     "@rollup/plugin-terser": "^0.4.3",
     "@rollup/plugin-typescript": "^11.1.1",
     "fs-extra": "^11.1.1",
-    "minimist": "^1.2.8",
     "gulp": "^4.0.2",
     "gulp-clean": "^0.4.0",
     "gulp-webserver": "^0.9.1",
+    "minimist": "^1.2.8",
     "rollup": "^3.24.0",
     "rollup-plugin-dts": "^5.3.0",
+    "tslib": "^2.6.2",
     "typescript": "^4.9.5"
   }
 }
