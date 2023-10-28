@@ -16,12 +16,11 @@
 #### Using in Traditional Projects
 
 ```html
-<script src="https://unpkg.com/@xlou/webtools@1.1.6/dist/umd/webtools.min.js"></script>
+<script src="https://unpkg.com/@xlou/webtools@1.1.7/dist/umd/webtools.min.js"></script>
 <!-- It's recommended to download and use the file locally -->
 <script>
   /* After including this JS file, the tools object will be available on the window */
   let query = tools.getQuery()
-  let str = Base64.encode("hello webtools")
 </script>
 ```
 
@@ -37,16 +36,14 @@ In main.js or main.ts
 
 ``` javascript
 /* Using specific functions */
-import { Base64, getQuery } from '@xlou/webtools'
+import { getQuery } from '@xlou/webtools'
 
 let query = getQuery()
-let str = Base64.encode("hello webtools")
 
 /* Using the entire package */
 import tools from '@xlou/webtools'
 
 let query = tools.getQuery()
-let str = tools.Base64.encode("hello webtools")
 ```
 
 ### API
@@ -228,18 +225,22 @@ setStore('q', b) // key: q, value: tom
 Parameter Details
 
 ``` typescript
-interface Base64Options {
-  readonly encode: (str: string) => string;
-  readonly decode: (str: string) => string;
+class Base64 {
+  constructor(key: string | undefined);
+  private key;
+  encode(input: string): string;
+  decode(input: string): string;
+  private utf8_encode;
+  private utf8_decode;
 }
-const Base64: Base64Options;
 ```
 
 Usage Example
 
 ``` javascript
-let a = Base64.encode("Hello，Tom") // a => '5L2g5aW977yMVG9t'
-let b = Base64.decode('5L2g5aW977yMVG9t') // b => "Hello，Tom"
+const base64 = new Base64()
+let a = base64.encode("Hello, World!") // a => 'SGVsbG8sIFdvcmxkIQ=='
+let b = base64.decode('SGVsbG8sIFdvcmxkIQ==') // b => "Hello, World!"
 ```
 
 #### unid &ensp; Generate a Unique ID String
@@ -270,4 +271,31 @@ Usage Example
 colorRGB("#f00") // [255, 0, 0]
 colorRGB("#ff7300") // [255, 115, 0]
 colorRGB("rgb(128, 55, 255)") // [128, 55, 255]
+```
+
+#### clipboardWrite &ensp; Copy the specified content to the clipboard.
+
+Parameter Details
+
+``` typescript
+function clipboardWrite(content: any, type?: string): Promise<void>;
+```
+
+Usage Example
+
+``` javascript
+function copyText() {
+  clipboardWrite("Hello, World!") // If the 'type' parameter is not specified, it defaults to 'text/plain'.
+  .then(() => {
+    console.log("Copy successful")
+  })
+}
+async function copyImage() {
+  const res = await fetch("./flower.png")
+  const blob = await res.blob()
+  clipboardWrite(blob, blob.type)
+  .then(() => {
+    console.log("Copy successful")
+  })
+}
 ```

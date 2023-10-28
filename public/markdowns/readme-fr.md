@@ -8,24 +8,23 @@
 
 ### Introduction
 
-* Outils couramment utilisés dans le développement frontal
-* Exemples : Encodage et décodage Base64, copie profonde des données, récupération des paramètres de l'URL, etc.
+* Outils couramment utilisés en développement frontend.
+* Exemples : Encodage/Décodage Base64, copie profonde des données, extraction des paramètres d'URL, etc.
 
 ### Utilisation
 
-#### Utilisation dans les projets traditionnels
+#### Utilisation dans des projets traditionnels
 
 ```html
-<script src="https://unpkg.com/@xlou/webtools@1.1.6/dist/umd/webtools.min.js"></script>
-<!-- Il est recommandé de le télécharger et de l'utiliser localement -->
+<script src="https://unpkg.com/@xlou/webtools@1.1.7/dist/umd/webtools.min.js"></script>
+<!-- Il est recommandé de télécharger le fichier et de l'utiliser localement -->
 <script>
-  /* Après avoir importé ce fichier JavaScript, un objet tools sera ajouté à la fenêtre (window) */
+  /* Après avoir inclus ce fichier JS, l'objet tools sera disponible dans la fenêtre */
   let query = tools.getQuery()
-  let str = Base64.encode("hello webtools")
 </script>
 ```
 
-#### Utilisation dans des projets avec Vue, React, Angular, etc.
+#### Utilisation dans des projets Vue, React, Angular et autres projets Node
 
 Installation
 
@@ -33,27 +32,25 @@ Installation
 npm i @xlou/webtools -S
 ```
 
-Utilisation dans main.js / main.ts
+Dans main.js ou main.ts
 
 ``` javascript
-/* Importation des fonctions requises */
-import { Base64, getQuery } from '@xlou/webtools'
+/* Utilisation de fonctions spécifiques */
+import { getQuery } from '@xlou/webtools'
 
 let query = getQuery()
-let str = Base64.encode("hello webtools")
 
-/* Importation de l'ensemble du package */
+/* Utilisation du package complet */
 import tools from '@xlou/webtools'
 
 let query = tools.getQuery()
-let str = tools.Base64.encode("hello webtools")
 ```
 
 ### API
 
-#### deepCopy &ensp; Copie profonde des types de référence
+#### deepCopy &ensp; Copie profonde pour les types de référence
 
-Description des paramètres
+Détails des paramètres
 
 ```typescript
 function deepCopy(obj: any, set?: Set<any>): any;
@@ -62,36 +59,36 @@ function deepCopy(obj: any, set?: Set<any>): any;
 Exemple d'utilisation
 
 ``` javascript
-let objA = { m: "hello", n: [1, 2, 3] }
-let objB = deepCopy(a) // objB => { m: "hello", n: [1, 2, 3] }
-objA.m = "hi"
-objB.n[0] = 4 // objB => { m: "hi", n: [4, 2, 3] }
-console.log(objA) // objA => { m: "hello", n: [1, 2, 3] }
+let objA = { m: "bonjour", n: [1, 2, 3] }
+let objB = deepCopy(a) // objB => { m: "bonjour", n: [1, 2, 3] }
+objA.m = "salut"
+objB.n[0] = 4 // objB => { m: "salut", n: [4, 2, 3] }
+console.log(objA) // objA => { m: "bonjour", n: [1, 2, 3] }
 ```
 
-#### getQuery &ensp; Récupération des paramètres de l'URL
+#### getQuery &ensp; Obtenir les paramètres d'URL
 
-Description des paramètres
+Détails des paramètres
 
 ``` typescript
 interface GeneralObject {
   [prop: string]: string | number | boolean | null | undefined;
 }
 function getQuery(href?: string): GeneralObject;
-/* Si href n'est pas spécifié, les paramètres de l'URL de la page actuelle seront récupérés */
+/* Si href n'est pas fourni, il obtient les paramètres de l'URL de la page actuelle. */
 ```
 
 Exemple d'utilisation
 
 ``` javascript
-/* Supposons que l'URL de la page soit www.xxx.com?name=tom&id=1 */
+/* Si l'URL de la page actuelle est www.xxx.com?name=tom&id=1 */
 let q0 = getQuery() // q0 => { name: "tom", id: 1 }
 let q1 = getQuery("www.xxx.com?type=1") // q1 => { type: 1 }
 ```
 
-#### queryString &ensp; Conversion d'un objet en paramètres d'URL
+#### queryString &ensp; Convertir un objet en chaîne de requête
 
-Description des paramètres
+Détails des paramètres
 
 ``` typescript
 function queryString(obj: GeneralObject, bol?: boolean): string;
@@ -105,9 +102,9 @@ let m = queryString(a) // m => "name=tom&id=1"
 let n = queryString(a, true) // n => "?name=tom&id=1"
 ```
 
-#### filterObject &ensp; Filtrage d'objets
+#### filterObject &ensp; Filtrer un objet
 
-Description des paramètres
+Détails des paramètres
 
 ``` typescript
 function filterObject(obj: Object, str?: string, bol?: boolean): Object;
@@ -116,14 +113,14 @@ function filterObject(obj: Object, str?: string, bol?: boolean): Object;
 Exemple d'utilisation
 
 ``` javascript
-let a = { m: 123, n: "hello", p: 456, q: 789 }
+let a = { m: 123, n: "bonjour", p: 456, q: 789 }
 let b = filterObject(a, "p, q") // b => { p: 456, q: 789 }
-let c = filterObject(a, "p, q", false) // b => { m: 123, n: "hello" }
+let c = filterObject(a, "p, q", false) // b => { m: 123, n: "bonjour" }
 ```
 
-#### toFixed &ensp; Arrondi à un certain nombre de décimales
+#### toFixed &ensp; Format des décimales
 
-Description des paramètres
+Détails des paramètres
 
 ``` typescript
 function toFixed(num?: number | string, s?: number | string): string | undefined;
@@ -133,14 +130,14 @@ Exemple d'utilisation
 
 ``` javascript
 let a = 1.335
-let m = a.toFixed(2) // m => 1.33 En utilisant la méthode toFixed par défaut, les résultats peuvent différer des attentes habituelles
+let m = a.toFixed(2) // m => 1.33 L'utilisation de la méthode toFixed par défaut peut entraîner des résultats inattendus
 let n = toFixed(a, 2) // n => 1.34
 let p = toFixed(a) // p => 1
 ```
 
-#### formSubmit &ensp; Simulation de soumission de formulaire en JavaScript, souvent utilisée pour télécharger des fichiers avec la méthode POST
+#### formSubmit &ensp; Simuler la soumission de formulaire pour le téléchargement de fichiers
 
-Description des paramètres
+Détails des paramètres
 
 ``` typescript
 function formSubmit(obj: FormOptions): void;
@@ -151,15 +148,15 @@ Exemple d'utilisation
 ``` javascript
 formSubmit({
   method: "post", // Type de requête
-  action: "./hello", // Adresse de la requête
+  action: "./hello", // URL de la requête
   /* ... Autres paramètres de formulaire */
-  data: { name: "tom" } // Paramètres de la requête
+  data: { name: "tom" } // Données de la requête
 })
 ```
 
-#### readText &ensp; Lecture de fichiers texte
+#### readText &ensp; Lire des fichiers texte
 
-Description des paramètres
+Détails des paramètres
 
 ``` typescript
 function readText(url: string): Promise<string>;
@@ -174,9 +171,9 @@ readText("./hello.txt")
 })
 ```
 
-#### readJSON &ensp; Lecture de fichiers JSON
+#### readJSON &ensp; Lire des fichiers JSON
 
-Description des paramètres
+Détails des paramètres
 
 ``` typescript
 function readJSON(url: string): Promise<any>;
@@ -191,9 +188,9 @@ readJSON("./hello.json")
 })
 ```
 
-#### getStore &ensp; Lecture de données depuis le stockage localStorage ; si c'est du JSON, un objet JavaScript est renvoyé directement
+#### getStore &ensp; Lire depuis localStorage, analyse JSON si applicable
 
-Description des paramètres
+Détails des paramètres
 
 ``` typescript
 function getStore(str: string): any;
@@ -202,13 +199,15 @@ function getStore(str: string): any;
 Exemple d'utilisation
 
 ``` javascript
-/* Clé : a, Valeur : { "m": "hello" } */
-let b = getStore("a") // b => { m: "hello" }
+/* clé : a, valeur : {
+
+ "m": "bonjour" } */
+let b = getStore("a") // b => { m: "bonjour" }
 ```
 
-#### setStore &ensp; Stockage de données dans le localStorage ; si les données sont un objet JavaScript, elles sont converties en JSON avant d'être stockées
+#### setStore &ensp; Écrire dans localStorage, analyser les objets en JSON si applicable
 
-Description des paramètres
+Détails des paramètres
 
 ``` typescript
 function setStore(str: string, data: any): void;
@@ -217,36 +216,38 @@ function setStore(str: string, data: any): void;
 Exemple d'utilisation
 
 ``` javascript
-let a =
-
- { m: "hello" }
+let a = { m: "bonjour" }
 let b = "tom"
-setStore('p', a) // Clé : p, Valeur : { "m": "hello" }
-setStore('q', b) // Clé : q, Valeur : tom
+setStore('p', a) // clé : p, valeur : { "m": "bonjour" }
+setStore('q', b) // clé : q, valeur : tom
 ```
 
-#### Base64 &ensp; Encodage et décodage Base64 des chaînes
+#### Base64 &ensp; Encoder et décoder des chaînes en utilisant Base64
 
-Description des paramètres
+Détails des paramètres
 
 ``` typescript
-interface Base64Options {
-  readonly encode: (str: string) => string;
-  readonly decode: (str: string) => string;
+class Base64 {
+  constructor(key: string | undefined);
+  private key;
+  encode(input: string): string;
+  decode(input: string): string;
+  private utf8_encode;
+  private utf8_decode;
 }
-const Base64: Base64Options;
 ```
 
 Exemple d'utilisation
 
 ``` javascript
-let a = Base64.encode("Hello，Tom") // a => '5L2g5aW977yMVG9t'
-let b = Base64.decode('5L2g5aW977yMVG9t') // b => "Hello，Tom"
+const base64 = new Base64()
+let a = base64.encode("Bonjour, le monde !") // a => 'SGVsbG8sIEJyb3duLCBsZS1tb25kIQ=='
+let b = base64.decode('SGVsbG8sIEJyb3duLCBsZS1tb25kIQ==') // b => "Bonjour, le monde !"
 ```
 
-#### unid &ensp; Génération d'une chaîne d'identifiant unique et non répétée
+#### unid &ensp; Générer une chaîne d'ID unique
 
-Description des paramètres
+Détails des paramètres
 
 ``` typescript
 function unid(): string;
@@ -258,9 +259,9 @@ Exemple d'utilisation
 let a = unid() // a => 'xenj1qoj5lbei4nh2'
 ```
 
-#### colorRGB &ensp; Renvoie les valeurs R, G et B d'une couleur
+#### colorRGB &ensp; Obtenir les valeurs RGB d'une couleur
 
-Description des paramètres
+Détails des paramètres
 
 ``` typescript
 function colorRGB(str: string): Array<number> | undefined;
@@ -272,4 +273,31 @@ Exemple d'utilisation
 colorRGB("#f00") // [255, 0, 0]
 colorRGB("#ff7300") // [255, 115, 0]
 colorRGB("rgb(128, 55, 255)") // [128, 55, 255]
+```
+
+#### clipboardWrite &ensp; Copier le contenu spécifié dans le presse-papiers.
+
+Détails des paramètres
+
+``` typescript
+function clipboardWrite(content: any, type?: string): Promise<void>;
+```
+
+Exemple d'utilisation
+
+``` javascript
+function copyText() {
+  clipboardWrite("Bonjour, le monde !") // Si le paramètre 'type' n'est pas spécifié, il est défini par défaut sur 'text/plain'.
+  .then(() => {
+    console.log("Copie réussie")
+  })
+}
+async function copyImage() {
+  const res = await fetch("./flower.png")
+  const blob = await res.blob()
+  clipboardWrite(blob, blob.type)
+  .then(() => {
+    console.log("Copie réussie")
+  })
+}
 ```

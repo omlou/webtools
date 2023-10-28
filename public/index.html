@@ -4,42 +4,28 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>webtools</title>
-  <script src="../dist/webtools.min.js"></script>
+  <script src="../dist/umd/webtools.min.js"></script>
   <style></style>
 </head>
 <body>
   <div class="app">
-    <input class="a" type="text" placeholder="数字两位小数">
-    <input class="b" type="text" placeholder="数字两位小数，最大长度6">
-    <input class="b" type="text" placeholder="数字两位小数，最大长度6">
+    <input type="text" id="content">
+    <button onclick="copy()">复制</button> 
   </div>
   <script>
-    tools.formatInput({
-      el:".a",
-      reg:/^[+-]?((([1-9]\d*)|0)(\.\d{0,2})?)?$/,
-      nopass:()=>{
-        console.log("只能输入数字，最多两位小数")
-      },
-      pass:(nv,ov)=>{}
+    const base64 = new tools.Base64()
+    console.log({
+      obj: base64,
+      key: base64.key,
+      encode: base64.encode("原神启动"),
+      decode: base64.decode("5Y6f56We5ZCv5Yqo")
     })
-    tools.formatInput({
-      el:".b",
-      rules:[
-        {
-          reg:/^[+-]?((([1-9]\d*)|0)(\.\d{0,2})?)?$/,
-          nopass:()=>{
-            console.log("只能输入数字")
-          }
-        },
-        {
-          reg:/^[\S\s]{0,6}$/,
-          nopass:()=>{
-            console.log("最大长度6")
-          }
-        }
-      ],
-      pass:(nv,ov)=>{}
-    })
+    function copy() {
+      tools.clipboardWrite(content.value)
+      .then(() => {
+        console.log("复制成功")
+      })
+    }
   </script>
 </body>
 </html>

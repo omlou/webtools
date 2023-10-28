@@ -1,6 +1,6 @@
 {
   "name": "@xlou/webtools",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "main": "./dist/es/webtools.min.js",
   "module": "./dist/es/webtools.min.js",
   "browser": "./dist/umd/webtools.min.js",

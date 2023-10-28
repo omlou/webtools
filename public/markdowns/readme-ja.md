@@ -6,26 +6,25 @@
 * [한국어](https://github.com/omlou/webtools/blob/master/public/markdowns/readme-ko.md)
 * [Français](https://github.com/omlou/webtools/blob/master/public/markdowns/readme-fr.md)
 
-### 概要
+### 紹介
 
-* フロントエンド開発で一般的に使用されるツール
-* 例：Base64エンコードとデコード、データの深いコピー、URLのパラメーター取得など
+* フロントエンド開発でよく使用されるツール。
+* 例: Base64エンコード/デコード、データの深いコピー、URLパラメータの抽出など。
 
-### 使用法
+### 使い方
 
-#### 伝統的なプロジェクトでの使用
+#### 伝統的なプロジェクトで使用
 
 ```html
-<script src="https://unpkg.com/@xlou/webtools@1.1.6/dist/umd/webtools.min.js"></script>
-<!-- ダウンロードして使用することをおすすめします -->
+<script src="https://unpkg.com/@xlou/webtools@1.1.7/dist/umd/webtools.min.js"></script>
+<!-- ファイルをダウンロードしてローカルで使用することをお勧めします。 -->
 <script>
-  /* このjsファイルをインポートすると、windowにtoolsオブジェクトが追加されます */
+  /* このJSファイルを含めた後、toolsオブジェクトはwindowで利用可能になります。 */
   let query = tools.getQuery()
-  let str = Base64.encode("hello webtools")
 </script>
 ```
 
-#### Vue、React、Angularなどのノードプロジェクトでの使用
+#### Vue、React、Angular、およびその他のNodeプロジェクトで使用
 
 インストール
 
@@ -33,27 +32,25 @@
 npm i @xlou/webtools -S
 ```
 
-main.js / main.ts での使用
+main.jsまたはmain.tsで
 
 ``` javascript
-/* 必要なものだけを使用 */
-import { Base64, getQuery } from '@xlou/webtools'
+/* 特定の関数を使用 */
+import { getQuery } from '@xlou/webtools'
 
 let query = getQuery()
-let str = Base64.encode("hello webtools")
 
 /* パッケージ全体を使用 */
 import tools from '@xlou/webtools'
 
 let query = tools.getQuery()
-let str = tools.Base64.encode("hello webtools")
 ```
 
 ### API
 
 #### deepCopy &ensp; 参照型の深いコピー
 
-パラメーターの説明
+パラメータの詳細
 
 ```typescript
 function deepCopy(obj: any, set?: Set<any>): any;
@@ -62,36 +59,36 @@ function deepCopy(obj: any, set?: Set<any>): any;
 使用例
 
 ``` javascript
-let objA = { m: "hello", n: [1, 2, 3] }
-let objB = deepCopy(a) // objB => { m: "hello", n: [1, 2, 3] }
-objA.m = "hi"
-objB.n[0] = 4 // objB => { m: "hi", n: [4, 2, 3] }
-console.log(objA) // objA => { m: "hello", n: [1, 2, 3] }
+let objA = { m: "こんにちは", n: [1, 2, 3] }
+let objB = deepCopy(a) // objB => { m: "こんにちは", n: [1, 2, 3] }
+objA.m = "こんにちは、世界"
+objB.n[0] = 4 // objB => { m: "こんにちは、世界", n: [4, 2, 3] }
+console.log(objA) // objA => { m: "こんにちは", n: [1, 2, 3] }
 ```
 
-#### getQuery &ensp; URLのパラメーターを取得
+#### getQuery &ensp; URLパラメータの取得
 
-パラメーターの説明
+パラメータの詳細
 
 ``` typescript
 interface GeneralObject {
   [prop: string]: string | number | boolean | null | undefined;
 }
 function getQuery(href?: string): GeneralObject;
-/* hrefを渡さない場合、現在のページのURLのパラメーターを取得します */
+/* hrefが提供されない場合、現在のページのURLからパラメータを取得します。 */
 ```
 
 使用例
 
 ``` javascript
-/* この時、ページのURLが www.xxx.com?name=tom&id=1 であるとします */
+/* 現在のページのURLがwww.xxx.com?name=tom&id=1の場合 */
 let q0 = getQuery() // q0 => { name: "tom", id: 1 }
 let q1 = getQuery("www.xxx.com?type=1") // q1 => { type: 1 }
 ```
 
-#### queryString &ensp; オブジェクトをURLのパラメーターに変換
+#### queryString &ensp; オブジェクトをクエリ文字列に変換
 
-パラメーターの説明
+パラメータの詳細
 
 ``` typescript
 function queryString(obj: GeneralObject, bol?: boolean): string;
@@ -105,9 +102,9 @@ let m = queryString(a) // m => "name=tom&id=1"
 let n = queryString(a, true) // n => "?name=tom&id=1"
 ```
 
-#### filterObject &ensp; オブジェクトをフィルタリング
+#### filterObject &ensp; オブジェクトのフィルタリング
 
-パラメーターの説明
+パラメータの詳細
 
 ``` typescript
 function filterObject(obj: Object, str?: string, bol?: boolean): Object;
@@ -116,14 +113,14 @@ function filterObject(obj: Object, str?: string, bol?: boolean): Object;
 使用例
 
 ``` javascript
-let a = { m: 123, n: "hello", p: 456, q: 789 }
+let a = { m: 123, n: "こんにちは", p: 456, q: 789 }
 let b = filterObject(a, "p, q") // b => { p: 456, q: 789 }
-let c = filterObject(a, "p, q", false) // b => { m: 123, n: "hello" }
+let c = filterObject(a, "p, q", false) // b => { m: 123, n: "こんにちは" }
 ```
 
-#### toFixed &ensp; 指定した小数点以下の桁数を保持
+#### toFixed &ensp; 小数点の桁数をフォーマット
 
-パラメーターの説明
+パラメータの詳細
 
 ``` typescript
 function toFixed(num?: number | string, s?: number | string): string | undefined;
@@ -133,14 +130,14 @@ function toFixed(num?: number | string, s?: number | string): string | undefined
 
 ``` javascript
 let a = 1.335
-let m = a.toFixed(2) // m => 1.33 デフォルトのtoFixedメソッドを使用すると、通常の認識とは異なる結果になることがあります
+let m = a.toFixed(2) // m => 1.33 デフォルトのtoFixedメソッドを使用すると予期しない結果が発生する可能性があります。
 let n = toFixed(a, 2) // n => 1.34
 let p = toFixed(a) // p => 1
 ```
 
-#### formSubmit &ensp; JavaScriptでフォームを送信し、ファイルをPOSTでダウンロードする
+#### formSubmit &ensp; ファイルのダウンロードをシミュレーションするフォームの提出
 
-パラメーターの説明
+パラメータの詳細
 
 ``` typescript
 function formSubmit(obj: FormOptions): void;
@@ -150,16 +147,16 @@ function formSubmit(obj: FormOptions): void;
 
 ``` javascript
 formSubmit({
-  method: "post", // リクエストの種類
-  action: "./hello", // リクエスト先のアドレス
-  /* ... その他のフォームパラメーター */
-  data: { name: "tom" } // リクエストのパラメーター
+  method: "post", // リクエストタイプ
+  action: "./hello", // リクエストURL
+  /* ... その他のフォームパラメータ */
+  data: { name: "tom" } // リクエストデータ
 })
 ```
 
-#### readText &ensp; テキストファイルを読み込む
+#### readText &ensp; テキストファイルの読み取り
 
-パラメーターの説明
+パラメータの詳細
 
 ``` typescript
 function readText(url: string): Promise<string>;
@@ -174,9 +171,9 @@ readText("./hello.txt")
 })
 ```
 
-#### readJSON &ensp; JSONファイルを読み込む
+#### readJSON &ensp; JSONファイルの読み取り
 
-パラメーターの説明
+パラメータの詳細
 
 ``` typescript
 function readJSON(url: string): Promise<any>;
@@ -185,17 +182,17 @@ function readJSON(url: string): Promise<any>;
 使用例
 
 ``` javascript
-readJSON
-
-("./hello.json")
+readJSON("./hello.json")
 .then(res => {
   console.log(res)
 })
 ```
 
-#### getStore &ensp; localStorageを読み込む。もしデータがJSON形式なら、直接JavaScriptのオブジェクトとして返されます
+#### getStore &ensp; localStorageから読み取り、適用可能な
 
-パラメーターの説明
+場合はJSONを解析
+
+パラメータの詳細
 
 ``` typescript
 function getStore(str: string): any;
@@ -204,13 +201,13 @@ function getStore(str: string): any;
 使用例
 
 ``` javascript
-/* キー: a, 値: { "m": "hello" } */
-let b = getStore("a") // b => { m: "hello" }
+/* キー: a, 値: { "m": "こんにちは" } */
+let b = getStore("a") // b => { m: "こんにちは" }
 ```
 
-#### setStore &ensp; localStorageを設定する。データがJavaScriptのオブジェクトの場合、JSONに変換して保存されます
+#### setStore &ensp; localStorageに書き込み、オブジェクトをJSONに解析
 
-パラメーターの説明
+パラメータの詳細
 
 ``` typescript
 function setStore(str: string, data: any): void;
@@ -219,34 +216,38 @@ function setStore(str: string, data: any): void;
 使用例
 
 ``` javascript
-let a = { m: "hello" }
+let a = { m: "こんにちは" }
 let b = "tom"
-setStore('p', a) // キー: p, 値: { "m": "hello" }
+setStore('p', a) // キー: p, 値: { "m": "こんにちは" }
 setStore('q', b) // キー: q, 値: tom
 ```
 
-#### Base64 &ensp; 文字列をBase64でエンコードとデコード
+#### Base64 &ensp; Base64を使用して文字列のエンコードおよびデコード
 
-パラメーターの説明
+パラメータの詳細
 
 ``` typescript
-interface Base64Options {
-  readonly encode: (str: string) => string;
-  readonly decode: (str: string) => string;
+class Base64 {
+  constructor(key: string | undefined);
+  private key;
+  encode(input: string): string;
+  decode(input: string): string;
+  private utf8_encode;
+  private utf8_decode;
 }
-const Base64: Base64Options;
 ```
 
 使用例
 
 ``` javascript
-let a = Base64.encode("Hello，Tom") // a => '5L2g5aW977yMVG9t'
-let b = Base64.decode('5L2g5aW977yMVG9t') // b => "Hello，Tom"
+const base64 = new Base64()
+let a = base64.encode("こんにちは、世界!") // a => 'wqTspIDtlITroIHsoJzsmqTslZkg'
+let b = base64.decode('wqTspIDtlITroIHsoJzsmqTslZkg') // b => "こんにちは、世界!"
 ```
 
-#### unid &ensp; 一意で重複しないID文字列を生成
+#### unid &ensp; ユニークなID文字列の生成
 
-パラメーターの説明
+パラメータの詳細
 
 ``` typescript
 function unid(): string;
@@ -258,9 +259,9 @@ function unid(): string;
 let a = unid() // a => 'xenj1qoj5lbei4nh2'
 ```
 
-#### colorRGB &ensp; 色の値をR、G、B値で返す
+#### colorRGB &ensp; カラーからRGB値を取得
 
-パラメーターの説明
+パラメータの詳細
 
 ``` typescript
 function colorRGB(str: string): Array<number> | undefined;
@@ -272,4 +273,31 @@ function colorRGB(str: string): Array<number> | undefined;
 colorRGB("#f00") // [255, 0, 0]
 colorRGB("#ff7300") // [255, 115, 0]
 colorRGB("rgb(128, 55, 255)") // [128, 55, 255]
+```
+
+#### clipboardWrite &ensp; 指定されたコンテンツをクリップボードにコピーします。
+
+パラメータの詳細
+
+``` typescript
+function clipboardWrite(content: any, type?: string): Promise<void>;
+```
+
+使用例
+
+``` javascript
+function copyText() {
+  clipboardWrite("こんにちは、世界!") // 'type'パラメータが指定されていない場合、デフォルトで'text/plain'になります。
+  .then(() => {
+    console.log("コピー成功")
+  })
+}
+async function copyImage() {
+  const res = await fetch("./flower.png")
+  const blob = await res.blob()
+  clipboardWrite(blob, blob.type)
+  .then(() => {
+    console.log("コピー成功")
+  })
+}
 ```

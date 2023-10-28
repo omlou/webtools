@@ -4,58 +4,18 @@
     (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.tools = factory());
 })(this, (function () { 'use strict';
 
-    function utf8_encode(str) {
-        str = str.replace(/\r\n/g, "\n");
-        let utftext = "";
-        for (let n = 0; n < str.length; n++) {
-            let c = str.charCodeAt(n);
-            if (c < 128) {
-                utftext += String.fromCharCode(c);
-            }
-            else if ((c > 127) && (c < 2048)) {
-                utftext += String.fromCharCode((c >> 6) | 192);
-                utftext += String.fromCharCode((c & 63) | 128);
-            }
-            else {
-                utftext += String.fromCharCode((c >> 12) | 224);
-                utftext += String.fromCharCode(((c >> 6) & 63) | 128);
-                utftext += String.fromCharCode((c & 63) | 128);
-            }
-        }
-        return utftext;
-    }
-    function utf8_decode(utftext) {
-        let str = "";
-        let i = 0;
-        let c = 0, c1 = 0, c2 = 0;
-        while (i < utftext.length) {
-            c = utftext.charCodeAt(i);
-            if (c < 128) {
-                str += String.fromCharCode(c);
-                i++;
-            }
-            else if ((c > 191) && (c < 224)) {
-                c1 = utftext.charCodeAt(i + 1);
-                str += String.fromCharCode(((c & 31) << 6) | (c1 & 63));
-                i += 2;
-            }
-            else {
-                c1 = utftext.charCodeAt(i + 1);
-                c2 = utftext.charCodeAt(i + 2);
-                str += String.fromCharCode(((c & 15) << 12) | ((c1 & 63) << 6) | (c2 & 63));
-                i += 3;
-            }
-        }
-        return str;
-    }
-    const key = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
     /* Transcoding and decoding of Base64 */
-    const Base64 = {
-        encode: function (input) {
+    class Base64 {
+        constructor(key) {
+            if (key)
+                this.key = key;
+        }
+        key = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+        encode(input) {
             let output = "";
             let chr1, chr2, chr3, enc1, enc2, enc3, enc4;
             let i = 0;
-            input = utf8_encode(input);
+            input = this.utf8_encode(input);
             while (i < input.length) {
                 chr1 = input.charCodeAt(i++);
                 chr2 = input.charCodeAt(i++);
@@ -70,21 +30,21 @@
                 else if (isNaN(chr3)) {
                     enc4 = 64;
                 }
-                output = output + key.charAt(enc1) + key.charAt(enc2) + key.charAt(enc3) + key.charAt(enc4);
+                output = output + this.key.charAt(enc1) + this.key.charAt(enc2) + this.key.charAt(enc3) + this.key.charAt(enc4);
             }
             return output;
-        },
-        decode: function (input) {
+        }
+        decode(input) {
             let output = "";
             let chr1, chr2, chr3;
             let enc1, enc2, enc3, enc4;
             let i = 0;
             input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
             while (i < input.length) {
-                enc1 = key.indexOf(input.charAt(i++));
-                enc2 = key.indexOf(input.charAt(i++));
-                enc3 = key.indexOf(input.charAt(i++));
-                enc4 = key.indexOf(input.charAt(i++));
+                enc1 = this.key.indexOf(input.charAt(i++));
+                enc2 = this.key.indexOf(input.charAt(i++));
+                enc3 = this.key.indexOf(input.charAt(i++));
+                enc4 = this.key.indexOf(input.charAt(i++));
                 chr1 = (enc1 << 2) | (enc2 >> 4);
                 chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
                 chr3 = ((enc3 & 3) << 6) | enc4;
@@ -96,10 +56,54 @@
                     output = output + String.fromCharCode(chr3);
                 }
             }
-            output = utf8_decode(output).replace(/\u0000/g, "");
+            output = this.utf8_decode(output).replace(/\u0000/g, "");
             return output;
         }
-    };
+        utf8_encode(str) {
+            str = str.replace(/\r\n/g, "\n");
+            let utftext = "";
+            for (let n = 0; n < str.length; n++) {
+                let c = str.charCodeAt(n);
+                if (c < 128) {
+                    utftext += String.fromCharCode(c);
+                }
+                else if ((c > 127) && (c < 2048)) {
+                    utftext += String.fromCharCode((c >> 6) | 192);
+                    utftext += String.fromCharCode((c & 63) | 128);
+                }
+                else {
+                    utftext += String.fromCharCode((c >> 12) | 224);
+                    utftext += String.fromCharCode(((c >> 6) & 63) | 128);
+                    utftext += String.fromCharCode((c & 63) | 128);
+                }
+            }
+            return utftext;
+        }
+        utf8_decode(utftext) {
+            let str = "";
+            let i = 0;
+            let c = 0, c1 = 0, c2 = 0;
+            while (i < utftext.length) {
+                c = utftext.charCodeAt(i);
+                if (c < 128) {
+                    str += String.fromCharCode(c);
+                    i++;
+                }
+                else if ((c > 191) && (c < 224)) {
+                    c1 = utftext.charCodeAt(i + 1);
+                    str += String.fromCharCode(((c & 31) << 6) | (c1 & 63));
+                    i += 2;
+                }
+                else {
+                    c1 = utftext.charCodeAt(i + 1);
+                    c2 = utftext.charCodeAt(i + 2);
+                    str += String.fromCharCode(((c & 15) << 12) | ((c1 & 63) << 6) | (c2 & 63));
+                    i += 3;
+                }
+            }
+            return str;
+        }
+    }
     /* Deep copy of reference data types */
     function deepCopy(obj, set = new Set()) {
         if (typeof obj !== 'object' || obj === null)
@@ -338,6 +342,19 @@
             return res.map(Number);
         }
     }
+    function clipboardWrite(content, type = "text/plain") {
+        let ci = null;
+        if (Object.prototype.toString.call(content) === "[object Blob]") {
+            ci = new ClipboardItem({ [type]: content });
+        }
+        else if (Array.isArray(content)) {
+            ci = new ClipboardItem({ [type]: new Blob(content, { type }) });
+        }
+        else {
+            ci = new ClipboardItem({ [type]: new Blob([content], { type }) });
+        }
+        return navigator.clipboard.write([ci]);
+    }
     var webtools = {
         Base64,
         deepCopy,
@@ -351,7 +368,8 @@
         getStore,
         setStore,
         unid,
-        colorRGB
+        colorRGB,
+        clipboardWrite
     };
 
     return webtools;
