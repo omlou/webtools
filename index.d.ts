@@ -8,7 +8,7 @@ interface FormOptions {
     data?: any;
 }
 declare class Base64 {
-    constructor(key: string | undefined);
+    constructor(key?: string);
     private key;
     encode(input: string): string;
     decode(input: string): string;

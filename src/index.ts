@@ -11,7 +11,7 @@ interface FormOptions {
 
 /* Transcoding and decoding of Base64 */
 class Base64 {
-  constructor(key: string | undefined) {
+  constructor(key?: string) {
     if (key) this.key = key
   }
   private key = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/="

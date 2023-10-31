@@ -1,10 +1,10 @@
 ### 言語
 
 * [English](https://github.com/omlou/webtools#readme)
-* [简体中文](https://github.com/omlou/webtools/blob/master/public/markdowns/readme-zh.md)
-* [日本語](https://github.com/omlou/webtools/blob/master/public/markdowns/readme-ja.md)
-* [한국어](https://github.com/omlou/webtools/blob/master/public/markdowns/readme-ko.md)
-* [Français](https://github.com/omlou/webtools/blob/master/public/markdowns/readme-fr.md)
+* [简体中文](https://github.com/omlou/webtools/blob/master/public/md/readme-zh.md)
+* [日本語](https://github.com/omlou/webtools/blob/master/public/md/readme-ja.md)
+* [한국어](https://github.com/omlou/webtools/blob/master/public/md/readme-ko.md)
+* [Français](https://github.com/omlou/webtools/blob/master/public/md/readme-fr.md)
 
 ### 紹介
 
@@ -16,7 +16,7 @@
 #### 伝統的なプロジェクトで使用
 
 ```html
-<script src="https://unpkg.com/@xlou/webtools@1.1.7/dist/umd/webtools.min.js"></script>
+<script src="https://unpkg.com/@xlou/webtools@1.1.8/dist/umd/webtools.min.js"></script>
 <!-- ファイルをダウンロードしてローカルで使用することをお勧めします。 -->
 <script>
   /* このJSファイルを含めた後、toolsオブジェクトはwindowで利用可能になります。 */
@@ -228,7 +228,7 @@ setStore('q', b) // キー: q, 値: tom
 
 ``` typescript
 class Base64 {
-  constructor(key: string | undefined);
+  constructor(key?: string);
   private key;
   encode(input: string): string;
   decode(input: string): string;

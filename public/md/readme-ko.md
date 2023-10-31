@@ -1,10 +1,10 @@
 ### 언어
 
 * [English](https://github.com/omlou/webtools#readme)
-* [简体中文](https://github.com/omlou/webtools/blob/master/public/markdowns/readme-zh.md)
-* [日本語](https://github.com/omlou/webtools/blob/master/public/markdowns/readme-ja.md)
-* [한국어](https://github.com/omlou/webtools/blob/master/public/markdowns/readme-ko.md)
-* [Français](https://github.com/omlou/webtools/blob/master/public/markdowns/readme-fr.md)
+* [简体中文](https://github.com/omlou/webtools/blob/master/public/md/readme-zh.md)
+* [日本語](https://github.com/omlou/webtools/blob/master/public/md/readme-ja.md)
+* [한국어](https://github.com/omlou/webtools/blob/master/public/md/readme-ko.md)
+* [Français](https://github.com/omlou/webtools/blob/master/public/md/readme-fr.md)
 
 ### 소개
 
@@ -16,7 +16,7 @@
 #### 전통 프로젝트에서 사용
 
 ```html
-<script src="https://unpkg.com/@xlou/webtools@1.1.7/dist/umd/webtools.min.js"></script>
+<script src="https://unpkg.com/@xlou/webtools@1.1.8/dist/umd/webtools.min.js"></script>
 <!-- 파일을 다운로드하고 로컬로 사용하는 것이 좋습니다. -->
 <script>
   /* 이 JS 파일을 포함한 후, tools 객체는 window에서 사용 가능합니다. */
@@ -228,7 +228,7 @@ setStore('q', b) // 키: q, 값: tom
 
 ``` typescript
 class Base64 {
-  constructor(key: string | undefined);
+  constructor(key?: string);
   private key;
   encode(input: string): string;
   decode(input: string): string;
